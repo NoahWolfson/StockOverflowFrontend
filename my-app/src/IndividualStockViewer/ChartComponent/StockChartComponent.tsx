@@ -100,7 +100,7 @@ const StockChartComponent: React.FC<StockData> = ({ ticker }) => {
   }, [ticker]);
 
   return (
-    <div style={{ width: "80%", margin: "0 auto" }}>
+    <div style={{ width: "70%", margin: "0 auto" }}>
       {Error ? (
         <p style={{ color: "red" }}>{Error}</p>
       ) : (

@@ -1,0 +1,22 @@
+/* Body styles */
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Optional padding */
+  }
+  
+  /* Container styles */
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center contents vertically (if needed) */
+    align-items: center; /* Center contents horizontally (if needed) */
+    width: 80%; /* Adjust width as needed */
+     /* Optional max width for containers */
+    margin-bottom: 16px; /* Spacing between containers */
+  }
+  
+  /* Optional for aesthetic spacing */

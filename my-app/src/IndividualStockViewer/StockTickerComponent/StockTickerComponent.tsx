@@ -15,7 +15,7 @@ const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
     const [PrevPercentage, setPrevPercentage] = useState<Number| 0>(0);
     const [PrevChange, setPrevChange] = useState<Number| 0>(0);
     const [Price, setPrice] = useState<Number| 0>(0);
-    const [Percentage, setPercentage] = useState<Number| 0>(0);
+    const [Percentage, setPercentage] = useState<number| 0>(0);
     const [Change, setChange] = useState<Number| 0>(0);
     const [ChangeNumClassName, setChangeNumClassName] = useState<string>("");
     useEffect(() => {
@@ -39,7 +39,7 @@ const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
             }
         }
         fetchStockTickerData();
-        interval = setInterval(fetchStockTickerData, 10000);
+        interval = setInterval(fetchStockTickerData, 50000);
         return () => clearInterval(interval);
         function changeClassName(curr: Number, prev: Number) {
             console.log('prev ' + prev + " "+ curr)
@@ -58,13 +58,13 @@ const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
     return (
         <div className="stockTicker">
             <div className="change_percentage_container">
-                <p className={`percentage ${ChangeNumClassName}`}>{Percentage.toString()}</p>
+                <p className={`price_label percentage ${ChangeNumClassName}`}>%{parseFloat(Percentage.toFixed(2)).toString()}</p>
             </div>
             <div className="market_cap_container">
-                <p className="market_cap">{Price.toString()}</p>
+                <p className="price_label market_cap">{Price.toString()}</p>
             </div>
             <div className="change_container">
-                <p className={`change ${ChangeNumClassName}`}>{Change.toString()}</p>
+                <p className={`price_label change ${ChangeNumClassName}`}>${Change.toString()}</p>
             </div>
         </div>
     );

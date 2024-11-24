@@ -3,7 +3,6 @@ import axios  from "axios";
 export default class IndividualStockViewerAPIService {
     static async getIndStockData(ticker: string): Promise<any> {
         const response = await axios.get(`http://localhost:8000/stocks/stock-data/${ticker}`);
-        console.log(response.data)
         return response.data
     }
     static async getIndStockChartData(ticker: string): Promise<any> {
@@ -21,7 +20,6 @@ export default class IndividualStockViewerAPIService {
         }
         const data = await response.json();
         console.log('inside the API caller')
-        console.log(data)
         return data;
     }
 }
