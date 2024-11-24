@@ -1,0 +1,10 @@
+.additional_comp_data {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+.CompanyOverviewComponent {
+
+}
+.company_buisness_summary_container {
+    text-align: center;
+}

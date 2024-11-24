@@ -1,0 +1,23 @@
+.StockSummaryComponent {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
+}
+.data_text {
+    font-family: 'Courier New', Courier, monospace;
+}
+.data_name {
+    font-size: 70%;
+    font-weight: 700;
+}
+.data {
+    font-size: 90%;
+    font-weight: bolder;
+}
+.data_container {
+    text-align: center;
+    width: 75%;
+}
+.underline {
+    border-bottom: dotted black 1px;
+}
