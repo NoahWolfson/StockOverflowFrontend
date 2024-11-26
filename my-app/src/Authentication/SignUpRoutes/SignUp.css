@@ -1,0 +1,138 @@
+/* ChatGPT Generated */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Signup Component */
+  .signUpComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    min-height: 100vh;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Alert Box */
+  .alertComponent {
+    background-color: rgba(255, 0, 0, 0.1); /* Light red */
+    color: #d9534f;
+    border: 1px solid #d9534f;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .noAlertComponent {
+    visibility: hidden;
+  }
+  
+  /* Form Styling */
+  .signupForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Input Field Containers */
+  .inputFieldContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .inputFieldContainer label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    outline: none;
+  }
+  
+  .input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+  
+  /* Password Requirements */
+  .requirements {
+    margin-bottom: 20px;
+  }
+  
+  .requirements ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .requirements li {
+    font-size: 14px;
+  }
+  
+  .valid {
+    text-decoration: line-through;
+    color: green;
+  }
+  
+  .invalid {
+    text-decoration: none;
+    color: red;
+  }
+  
+  /* Submit Button */
+  .submitContainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .submit {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .signupForm {
+      padding: 20px;
+      width: 100%;
+    }
+  }

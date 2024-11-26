@@ -1,0 +1,78 @@
+/* ChatGPT Generated */
+.authDiv {
+    display: flex !important; /* Enable flexbox layout */
+    flex-direction: row !important; /* Align children side by side */
+    width: 100vw;
+    height: 100%;
+ /* Add space between logo and form */
+  }
+  .sign_up_text {
+    font-size: 3em;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+  }
+div#root {
+    width: 100vw !important;
+  }
+  
+  /* Left Side: Logo */
+  .logo_side {
+    flex: 1; /* Take up 50% of the available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(15, 15, 15); /* Light gray background */
+  }
+  .slogan{
+    font-style: italic;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #fff;
+  }
+  
+  /* Logo/Image Styling */
+  .secondaryLogo {
+    max-width: 80%; /* Scale logo width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Prevent distortion */
+  }
+  
+  /* Right Side: Form */
+  .the_form {
+    flex: 1; /* Take up 50% of the available space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* Slightly darker gray background */
+    padding: 20px;
+    border-radius: 5px 5px 0px 0px;
+  }
+  
+  /* Form Container */
+  .signUpComponent {
+    width: 100%; /* Full width of the container */
+    max-width: 400px; /* Restrict form width */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Responsive Design: Stack logo and form vertically on smaller screens */
+  @media (max-width: 768px) {
+    .authDiv {
+      flex-direction: column; /* Stack logo and form vertically */
+    }
+  
+    .logo_side,
+    .the_form {
+      flex: none; /* Reset flex properties */
+      width: 100%; /* Full width for each section */
+    }
+  
+    .secondaryLogo {
+      max-width: 60%; /* Shrink logo on mobile */
+    }
+  }
