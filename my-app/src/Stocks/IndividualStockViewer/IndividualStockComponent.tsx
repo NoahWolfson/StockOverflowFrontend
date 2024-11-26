@@ -14,7 +14,7 @@ type StockPageParams = {
 }
 
 const IndividualStockComponent: React.FC = () => {
-    const navigate = useNavigate();
+
     const { stockTicker } = useParams<StockPageParams>();
     const [message, setMessage] = useState<any | null>(null);
     const [error, setError] = useState<any | null>(null);
