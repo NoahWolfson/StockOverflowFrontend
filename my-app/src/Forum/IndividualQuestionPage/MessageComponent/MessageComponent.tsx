@@ -19,6 +19,13 @@ const MessageComponent: React.FC<MessageData> = (msg) => {
             setData(await QuestionPageService.getMessage(data._id));
         })
     }, []);
-    return (<div key = {data._id} className = "MessageComponent">{msg.Text}</div>)
+    return (<div key = {msg._id} className = "MessageComponent">
+        <p>{data.Text}</p>
+        <footer className="MessageButtons">
+            <button className="LikeButton">Likes: {data.Likes}</button>
+            <button className = "ClearLike">Clear Like/Dislike</button>
+            <button className="DislikeButton">Dislikes: {data.Likes}</button>
+        </footer>
+    </div>)
 }
 export default MessageComponent;
