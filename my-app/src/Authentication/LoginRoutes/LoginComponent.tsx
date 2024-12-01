@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import AuthenticationPageLogoSide from "../AuthenticationPageLogoSide";
+import AtuhAPIService from "../AuthBackendRoutes";
 
 
 const LoginInComponent: React.FC = () => {
-    const [email, setEmail] = useState("");
+    const [username, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alertMsg, setAlertMsg] = useState("");
     /**
@@ -16,11 +17,21 @@ const LoginInComponent: React.FC = () => {
     /**
      * this method handles the submit functionality
      */
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!/[@.]/.test(email)) {
+        if (!/[@.]/.test(username)) {
             setAlertMsg("Sign Up fail: Not a vaild Email")
 
+        }
+        try {
+            const respone = await AtuhAPIService.postLogin(username, password);
+            console.log(respone)
+            if (respone.status === 422) {
+                setAlertMsg(respone.msg)
+            }
+
+        } catch (error) {
+            console.log(error)
         }
 
     }
@@ -42,7 +53,7 @@ const LoginInComponent: React.FC = () => {
             <form className="signupForm form" onSubmit={handleSubmit}>
                 <div className="inputFieldContainer">
                     <label>Username or Email:</label>
-                        <input className='input' type="text" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        <input className='input' type="text" value={username} onChange={(e) => setEmail(e.target.value)}></input>
             
                 </div>
                 <div className="inputFieldContainer">

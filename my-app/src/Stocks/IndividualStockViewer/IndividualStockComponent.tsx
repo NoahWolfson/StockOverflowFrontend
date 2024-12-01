@@ -56,7 +56,7 @@ const IndividualStockComponent: React.FC = () => {
             <h3 className="ContainerTitle">Earnings</h3>
             <EarningsChartComponent data={message.Earnings.Data.body.earnings.financialsChart.quarterly}/>
           </div>
-          <div className="CompanyOverviewContainer container">
+           <div className="CompanyOverviewContainer container">
             <h3 className="ContainerTitle">Company Overview</h3>
             <CompanyOverviewComponent data={message.Company_Info.Data}/>
           </div>
@@ -67,7 +67,7 @@ const IndividualStockComponent: React.FC = () => {
           <div className="StockNewsComponenet container">
             <h3 className="ContainerTitle">News</h3>  
             <NewsComponent data={Array.isArray(message.News.Data.data.main.stream) ? message.News.Data.data.main.stream : []}/>
-          </div>
+          </div> 
         </div>
       );
 }
