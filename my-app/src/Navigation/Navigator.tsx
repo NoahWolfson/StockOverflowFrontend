@@ -56,7 +56,6 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
                 <div className="login_container">
                     <div className="ind_navigator_container">
                         {isAuthticated ? <p className="ind_navigator" onClick={logout}>Logout</p> : <Link className="ind_navigator" to="/auth/login">Login</Link>}
-                        
                     </div>
                 </div>
             </nav>

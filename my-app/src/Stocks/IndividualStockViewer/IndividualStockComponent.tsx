@@ -17,10 +17,12 @@ type isAuthenticated = {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
-
+    const [alertMsg, setAlertMsg] = useState("");
     const { stockTicker } = useParams<StockPageParams>();
     const [message, setMessage] = useState<any | null>(null);
     const [error, setError] = useState<any | null>(null);
+    const [userId, setUserId] = useState<string>("");
+
     useEffect(() => {
         const fetchMessage = async () => {
           try {
@@ -30,6 +32,7 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
             console.log(fetchMessage)
             setMessage(fetchedMessage);
             setIsAuthenticated(fetchedMessage.isAuthenticated)
+            setUserId(fetchedMessage.userId)
           } catch (err: any) {
             setError(err.message);
           }
@@ -45,9 +48,28 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
         return <p>Loading...</p>; 
       }
       
+  async function ProcessUserStock(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
+    try {
+      console.log(message.Stock.Summary.Data.QuoteOutput.Name + " " + userId + " " + stockTicker);
+      const response = await IndividualStockViewerAPIService.postSaveStockToUser(message.Stock.Summary.Data.QuoteOutput.Name, userId, stockTicker);
+      console.log(response);
+      if(response.status === 200) {
+        setAlertMsg(response.data.msg);
+      } else {
+        setAlertMsg(response.msg);
+      }
+    } catch (error) {
+      setAlertMsg("Error adding Stock, Please Try Again Later")
+    }
+  }
+
       return (
         <div className="body">
+          <div className={alertMsg !== "" ? "alertComponent" : "noAlertComponent"}>
+                {alertMsg !== "" ? <p className="alertMsg">{alertMsg}</p>: <p></p>}
+          </div>
           <h1 className="StockName">{`${message.Stock.Summary.Data.QuoteOutput.Name} (${message.Stock.Summary.Data.QuoteOutput.Symbol})`}</h1>
+          <button className="add-stock" onClick={ProcessUserStock}>Add Stock</button>
           <div className="StockTickerComponent container">
             <StockTickerComponent ticker={stockTicker}/>    
           </div>
