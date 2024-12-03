@@ -9,11 +9,14 @@ import CompanyOverviewComponent from "./CompanyOverview/CompanyOverviewComponent
 import './IndividualStock.css'
 import EarningsChartComponent from "./EarningsComponent/EarningsComponent";
 import StockFinancialComponent from "./StockFinancialDataComponent/StockFinancialDataComponent";
-type StockPageParams = {
-    stockTicker?: string; 
-}
 
-const IndividualStockComponent: React.FC = () => {
+type StockPageParams = {
+  stockTicker?: string; 
+}
+type isAuthenticated = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
 
     const { stockTicker } = useParams<StockPageParams>();
     const [message, setMessage] = useState<any | null>(null);
@@ -21,27 +24,30 @@ const IndividualStockComponent: React.FC = () => {
     useEffect(() => {
         const fetchMessage = async () => {
           try {
+            console.log('the ticker')
+            console.log(stockTicker)
             const fetchedMessage: any = await IndividualStockViewerAPIService.getIndStockData(stockTicker || 'Err');
             console.log(fetchMessage)
             setMessage(fetchedMessage);
+            setIsAuthenticated(fetchedMessage.isAuthenticated)
           } catch (err: any) {
             setError(err.message);
           }
         };
       
         fetchMessage();
-      }, [stockTicker]);
+      }, [stockTicker, setIsAuthenticated]);
       if (error) {
         return <p style={{ color: 'red' }}>Error: {error}</p>;
       }
     
       if (!message) {
-        return <p>Loading...</p>; // Render a loading state while fetching data
+        return <p>Loading...</p>; 
       }
       
       return (
         <div className="body">
-          <h1 className="StockName">{`${message.Summary.Data.QuoteOutput.Name} (${message.Summary.Data.QuoteOutput.Symbol})`}</h1>
+          <h1 className="StockName">{`${message.Stock.Summary.Data.QuoteOutput.Name} (${message.Stock.Summary.Data.QuoteOutput.Symbol})`}</h1>
           <div className="StockTickerComponent container">
             <StockTickerComponent ticker={stockTicker}/>    
           </div>
@@ -50,23 +56,23 @@ const IndividualStockComponent: React.FC = () => {
           </div>
           <div className="StockSummaryContainer container">
             <h3 className="ContainerTitle">Stock Summary</h3>
-            <StockSummaryComponent data={message.Summary.Data}/>
+            <StockSummaryComponent data={message.Stock.Summary.Data}/>
           </div>
           <div className="EarningsContainer container">
             <h3 className="ContainerTitle">Earnings</h3>
-            <EarningsChartComponent data={message.Earnings.Data.body.earnings.financialsChart.quarterly}/>
+            <EarningsChartComponent data={message.Stock.Earnings.Data.body.earnings.financialsChart.quarterly}/>
           </div>
            <div className="CompanyOverviewContainer container">
             <h3 className="ContainerTitle">Company Overview</h3>
-            <CompanyOverviewComponent data={message.Company_Info.Data}/>
+            <CompanyOverviewComponent data={message.Stock.Company_Info.Data}/>
           </div>
           <div className="StockFinancialContainer container">
             <h3 className="ContainerTitle">Stock Financial</h3>
-            <StockFinancialComponent data={message.Financial.Data.body}/>
+            <StockFinancialComponent data={message.Stock.Financial.Data.body}/>
           </div>
           <div className="StockNewsComponenet container">
             <h3 className="ContainerTitle">News</h3>  
-            <NewsComponent data={Array.isArray(message.News.Data.data.main.stream) ? message.News.Data.data.main.stream : []}/>
+            <NewsComponent data={Array.isArray(message.Stock.News.Data.data.main.stream) ? message.Stock.News.Data.data.main.stream : []}/>
           </div> 
         </div>
       );

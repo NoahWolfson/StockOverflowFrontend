@@ -25,6 +25,7 @@ const SignUp: React.FC = () => {
     const handlePassword =(newPassword: string) => {
         setPassword(newPassword);
     }
+    
     /**
      * this method handles the submit functionality
      */

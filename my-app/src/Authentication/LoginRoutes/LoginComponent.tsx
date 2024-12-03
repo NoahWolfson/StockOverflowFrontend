@@ -19,10 +19,11 @@ const LoginInComponent: React.FC = () => {
      */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!/[@.]/.test(username)) {
-            setAlertMsg("Sign Up fail: Not a vaild Email")
+        console.log(password)
+        // if (!/[@.]/.test(username)) {
+        //     setAlertMsg("Sign Up fail: Not a vaild Email")
 
-        }
+        // }
         try {
             const respone = await AtuhAPIService.postLogin(username, password);
             console.log(respone)

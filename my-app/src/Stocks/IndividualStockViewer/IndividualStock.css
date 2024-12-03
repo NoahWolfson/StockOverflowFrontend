@@ -6,6 +6,7 @@
     align-items: center; /* Center horizontally */
     margin: 0; /* Remove any default margin */
     padding: 0; /* Optional padding */
+    margin-top: 12%;
   }
   
   /* Container styles */
