@@ -1,0 +1,120 @@
+/* Base header styles */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Shrink effect for the entire header */
+.header.shrink {
+    padding-top: 0; /* Remove extra space when shrunk */
+}
+
+/* Logo section */
+.logo {
+    position: relative; /* Default stacked layout */
+    z-index: 2; /* Ensure it is above the nav bar */
+    transition: all 0.3s ease;
+}
+
+.logo img {
+    height: 100px; /* Default logo size */
+    transition: all 0.3s ease;
+}
+
+/* When the header shrinks, place the logo on top of the nav bar */
+.header.shrink .logo {
+    position: absolute; /* Physically on top of the nav bar */
+    top: 5px; /* Slight padding from the nav bar */
+}
+
+.header.shrink .logo img {
+    height: 50px; /* Smaller logo size */
+}
+
+/* Navigation bar */
+.navigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 60px; /* Default height */
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    z-index: 1;
+}
+
+/* Shrink navigation bar height */
+.header.shrink .navigation {
+    height: 50px;
+    padding: 5px 20px;
+}
+
+/* Site pages navigation */
+.site_pages {
+    display: flex;
+    gap: 20px;
+}
+
+.ind_navigator_container {
+    display: flex;
+    align-items: center;
+}
+
+.ind_navigator {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ind_navigator:hover {
+    background-color: #f0f0f0;
+    color: #007BFF;
+}
+
+/* Login container */
+.login_container {
+    display: flex;
+    align-items: center;
+}
+
+.login_container .ind_navigator {
+    font-size: 1.2rem;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .header {
+        padding: 0;
+    }
+
+    .logo img {
+        height: 80px;
+    }
+
+    .header.shrink .logo img {
+        height: 40px;
+    }
+
+    .navigation {
+        height: 50px;
+    }
+
+    .ind_navigator {
+        font-size: 1rem;
+    }
+}
