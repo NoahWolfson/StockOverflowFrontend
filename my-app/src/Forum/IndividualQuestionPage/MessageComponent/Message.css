@@ -1,66 +1,64 @@
 .ReplyButton {
+    margin-left: 1vw;
+    margin-right: 1vw;
     background-color: darkred;
     border: none;
     color: white;
-    padding: 10% 25%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    width: 20%;
+    font-size: 1vw;
     height: 90%;
+    width: 15%;
 }
 .ClearLike{
-    background-color: whitesmoke;
-    border: slategray solid 2px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border: none;
+    background-color: greenyellow;
     color: slateblue;
-    font-size: large;
-    padding: 10% 25%;
+    font-size: 1vw;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    width: 20%;
     height: 90%;
+    width: 15%;
 
 }
 .LikeButton{
+    margin-left: 1vw;
+    margin-right: 1vw;
     background-color: lightblue;
     border: none;
     color: darkblue;
-    padding: 10% 25%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: large;
-    width: 20%;
+    font-size: 1vw;
     height: 90%;
+    width: 15%;
 }
 .DislikeButton{
+    margin-left: 1vw;
+    margin-right: 1vw;
     background-color: darkblue;
     border: none;
     color: lightblue;
-    padding: 10% 25%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: large;
-    width: 20%;
+    font-size: 1vw;
     height: 90%;
+    width: 15%;
 }
 .MessageButtons{
-    display: block;
-    height: 15%;
-    width: 100%;
-    justify-self: center;
+    display: inline;
 }
 .MessageComponent {
     text-align: center;
     border: dodgerblue solid 2px;
     color: black;
     justify-self: center;
-    width: 90%;
-    height: auto;
+    width: 90vw;
+    height: 30vh;
     display: grid;
+
 }
 .MessageHeader{
     background-color: whitesmoke;
@@ -68,16 +66,16 @@
     text-align: left;
     height: 15%;
     width: 100%;
-    border: solid black 1px;
-    font: large "Times New Roman", Times, serif;
+    font: small "Times New Roman", Times, serif;
 }
 .MessageText {
     justify-self: center;
-    text-align: center;
+    text-align: left;
     font: medium "Times New Roman", Times, serif;
-    border: black solid 1px;
+    border-top: gray solid 1px;
+    border-bottom: gray solid 1px;
     text-decoration: none;
     color: darkslategray;
-    height: 65%;
+    min-height: 40vh;
     width: 100%;
 }

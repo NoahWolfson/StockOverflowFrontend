@@ -1,22 +1,16 @@
 import React, {useEffect} from "react";
-import axios from "axios";
-import QuestionPageService from "../QuestionPageService";
 import {MessageData} from "../QuestionPageService";
+import './Message.css'
 const MessageComponent: React.FC<MessageData> = (msg) => {
-    const[data, setData] = React.useState<MessageData>(msg);
-    useEffect(() => {
-        const getMessageData = setInterval(async()=>{
-            setData(await QuestionPageService.getMessage(data._id));
-        })
-    }, []);
-    return (<div key = {msg._id} className = "MessageComponent">
-        <h5 className="MessageHeader">{data.Username} at {data.Date_created.toString()}</h5>
-        <p className={"MessageText"}>{data.Text}</p>
-        <footer className="MessageButtons">
-            <button className="LikeButton">Likes: {data.Likes}</button>
+    return (<div className = "MessageComponent">
+        <h5 className="MessageHeader">{msg.Username} at {msg.Date_Created.toString()}</h5>
+        <div className={"MessageText"}>{msg.Text}</div>
+        <div className="MessageButtons">
+            <button className="LikeButton">Likes: {msg.Likes}</button>
             <button className = "ClearLike">Clear Like/Dislike</button>
-            <button className="DislikeButton">Dislikes: {data.Likes}</button>
-        </footer>
+            <button className="DislikeButton">Dislikes: {msg.Dislikes}</button>
+            <button className="ReplyButton">Click to Reply</button>
+        </div>
     </div>)
 }
 export default MessageComponent;
