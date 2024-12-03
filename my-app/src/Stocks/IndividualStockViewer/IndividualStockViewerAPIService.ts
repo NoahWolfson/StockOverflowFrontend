@@ -1,6 +1,12 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const BASE_URL = "http://localhost:8000/stocks";
+
+
+const config: AxiosRequestConfig = {
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
+};
 
 export default class IndividualStockViewerAPIService {
     /**
@@ -19,7 +25,27 @@ export default class IndividualStockViewerAPIService {
             throw new Error("Failed to fetch individual stock data");
         }
     }
-
+    /**
+     * this route saves the stock that the user added 
+     */
+    static async postSaveStockToUser(stockName: string,  userId: string, ticker?: string): Promise<any> {
+        const data = {
+            ticker, 
+            stockName,
+            userId,
+        }
+        try {
+            const response = await axios.post('http://localhost:8000/stocks/add-stock', data, config)
+            return response
+        } catch (error: any) {
+            if (error.response) {
+                console.error('Backend responded with an error:', error.response.data); 
+                return error.response.data; 
+            }
+            console.error('Unexpected error:', error.message); 
+            throw error; 
+        }
+    }
     /**
      * Fetch individual stock chart data.
      * @param ticker Stock ticker symbol
