@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import SignUp from './Authentication/SignUpRoutes/SignUp';
 import AuthenticationComponent from './Authentication/AuthenticationPage';
+import IndividualQuestionComponent from "./Forum/IndividualQuestionPage/IndividualQuestionComponent";
+import QuestionPage from "./Forum/QuestionPage";
 import Layout from './Layout';
 import StockRouter from './Stocks/StocksRouter';
 import { AuthProvider } from './useAuth';
@@ -20,6 +22,7 @@ function App() {
           <Route path='about'></Route>
           {/* Use StockRouter for dynamic stock routes */}
           <Route path='stocks/*' element={<StockRouter />} />
+           <Route path='forum/*' element={<QuestionPage/>}></Route>
           <Route path='auth/*' element={<AuthenticationComponent />} />
         </Route>
       </Routes>

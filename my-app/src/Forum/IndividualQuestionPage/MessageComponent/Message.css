@@ -1,0 +1,81 @@
+.ReplyButton {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    background-color: darkred;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1vw;
+    height: 90%;
+    width: 15%;
+}
+.ClearLike{
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border: none;
+    background-color: greenyellow;
+    color: slateblue;
+    font-size: 1vw;
+    text-align: center;
+    text-decoration: none;
+    height: 90%;
+    width: 15%;
+
+}
+.LikeButton{
+    margin-left: 1vw;
+    margin-right: 1vw;
+    background-color: lightblue;
+    border: none;
+    color: darkblue;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1vw;
+    height: 90%;
+    width: 15%;
+}
+.DislikeButton{
+    margin-left: 1vw;
+    margin-right: 1vw;
+    background-color: darkblue;
+    border: none;
+    color: lightblue;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1vw;
+    height: 90%;
+    width: 15%;
+}
+.MessageButtons{
+    display: inline;
+}
+.MessageComponent {
+    text-align: center;
+    border: dodgerblue solid 2px;
+    color: black;
+    justify-self: center;
+    width: 90vw;
+    height: 30vh;
+    display: grid;
+
+}
+.MessageHeader{
+    background-color: whitesmoke;
+    color: darkslategray;
+    text-align: left;
+    height: 15%;
+    width: 100%;
+    font: small "Times New Roman", Times, serif;
+}
+.MessageText {
+    justify-self: center;
+    text-align: left;
+    font: medium "Times New Roman", Times, serif;
+    border-top: gray solid 1px;
+    border-bottom: gray solid 1px;
+    text-decoration: none;
+    color: darkslategray;
+    min-height: 40vh;
+    width: 100%;
+}
