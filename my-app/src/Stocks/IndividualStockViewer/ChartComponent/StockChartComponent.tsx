@@ -40,11 +40,12 @@ const StockChartComponent: React.FC<StockData> = ({ ticker }) => {
     const fetchChartData = async () => {
       try {
         // Fetch stock chart data
-        const response = await IndividualStockViewerAPIService.getIndStockChartData(ticker || "Err");
 
+        const response = await IndividualStockViewerAPIService.getIndStockChartData(ticker || "Err");
+        console.log(response)
         // Process the response to extract labels and values
-        const labels = Object.keys(response['chart']);
-        const data = Object.values(response['chart']);
+        const labels = Object.keys(response['Stock']['chart']);
+        const data = Object.values(response['Stock']['chart']);
 
         // Set chart data
         setChartData({

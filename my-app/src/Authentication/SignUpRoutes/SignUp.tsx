@@ -1,9 +1,14 @@
 import React, {useState} from "react";
 import "./SignUp.css"
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import AuthenticationPageLogoSide from "../AuthenticationPageLogoSide";
+import PasswordComponent from "../PasswordComponent/PasswordComponent";
+import AtuhAPIService from "../AuthBackendRoutes";
+import { AnyARecord } from "dns";
 
 const SignUp: React.FC = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [username, setUserame] = useState("");
     const [password, setPassword] = useState("");
@@ -17,16 +22,19 @@ const SignUp: React.FC = () => {
         {id: 'req3', text: "Password must have one capital letter", test: (pw: string) => {return /[A-Z]/.test(pw)}},
         {id: 'req4', text: "Password must have one Special Character", test: (pw:string) => {return /[!@#$%^&*(),.?":{}|<>]/.test(pw)}}
     ]
-    const handlePassword =(e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
+    const handlePassword =(newPassword: string) => {
+        setPassword(newPassword);
     }
+    
     /**
      * this method handles the submit functionality
      */
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log(password)
         passwordRequirements.map((req) => {
             if (!req.test(password)) {
+                console.log('problem of password')
                 setAlertMsg("Sign Up fail: Check Password Requirements");
             }
         })
@@ -34,6 +42,21 @@ const SignUp: React.FC = () => {
             setAlertMsg("Sign Up fail: Not a vaild Email")
 
         }
+        try {
+            const response: any = await AtuhAPIService.postSignup(email, password, username);
+            if (response.status === 422 || response.status === 500) {
+                setAlertMsg(response.msg)
+            }
+            else {
+                //navigate back to login
+                navigate('/auth/login')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        // if (response.status !== 201) {
+        //     setAlertMsg(`Sign up fail: }`)
+        // }
 
     }
     /**
@@ -62,21 +85,7 @@ const SignUp: React.FC = () => {
                         <input  className='input' type="text" value={username} onChange={(e) => setUserame(e.target.value)}></input>
                     
                 </div>
-                <div className="passwordField">
-                    <div className="requirements">
-                        <ul>
-                            {passwordRequirements.map((req) => (
-                            <li key={req.text} className={req.test(password) ? 'valid' : 'invalid'}>
-                                {req.text}
-                            </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="inputFieldContainer">
-                        <label>Password:</label>
-                        <input className='input' type="password" value={password} onChange={handlePassword}></input>
-                    </div>
-                </div>
+                <PasswordComponent onPasswordChange={handlePassword}/>
                 <div className="submitContainer">
                     <button type="submit" className="submit">Sign Up</button>
                 </div>

@@ -39,6 +39,7 @@ div#root {
   
   /* Right Side: Form */
   .the_form {
+    margin-top: 10%;
     flex: 1; /* Take up 50% of the available space */
     display: flex;
     justify-content: center;
