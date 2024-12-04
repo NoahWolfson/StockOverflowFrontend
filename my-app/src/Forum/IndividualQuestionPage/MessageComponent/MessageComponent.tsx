@@ -1,15 +1,22 @@
 import React, {useEffect} from "react";
 import {MessageData} from "../QuestionPageService";
 import './Message.css'
-const MessageComponent: React.FC<MessageData> = (msg) => {
+type MessageComponentProps = {
+    msg: MessageData,
+    setReplyMessage: React.Dispatch<React.SetStateAction<MessageData | undefined>>;
+}
+const MessageComponent: React.FC<MessageComponentProps> = (props) => {
+    const clickReply = () =>{
+        props.setReplyMessage(props.msg);
+    }
     return (<div className = "MessageComponent">
-        <h5 className="MessageHeader">{msg.Username} at {msg.Date_Created.toString()}</h5>
-        <div className={"MessageText"}>{msg.Text}</div>
+        <h5 className="MessageHeader">{props.msg.Username} at {props.msg.Date_Created.toString()}</h5>
+        <div className={"MessageText"}>{props.msg.Text}</div>
         <div className="MessageButtons">
-            <button className="LikeButton">Likes: {msg.Likes}</button>
+            <button className="LikeButton">Likes: {props.msg.Likes}</button>
             <button className = "ClearLike">Clear Like/Dislike</button>
-            <button className="DislikeButton">Dislikes: {msg.Dislikes}</button>
-            <button className="ReplyButton">Click to Reply</button>
+            <button className="DislikeButton">Dislikes: {props.msg.Dislikes}</button>
+            <button className="ReplyButton" onClick={clickReply}>Click to Reply</button>
         </div>
     </div>)
 }

@@ -10,6 +10,7 @@ const IndividualQuestionComponent: React.FC = ()=>{
     const [data, setData] = React.useState<Array<ResponseData>>([]);
     const [questionData, setQuestionData] = React.useState<MessageData | null>(null);
     const {QuestionId} = useParams<QuestionPageParams>();
+    const [replyTo, setReplyTo] = React.useState<MessageData>();
     const [isDone, setIsDone] = React.useState(false);
     useEffect(()=>{
         const update = async function(){
@@ -27,23 +28,12 @@ const IndividualQuestionComponent: React.FC = ()=>{
         <div className="body">
             {isDone ? (
         <div className = "questionContainer">
-            <MessageComponent Account={questionData!.Account} _id={questionData!._id} Replies={questionData!.Replies} Date_Created={questionData!.Date_Created} RepliedTo={questionData!.RepliedTo}
-                          Likes={questionData!.Likes} Dislikes={questionData!.Dislikes} Text={questionData!.Text} Username={questionData!.Username} />
+            <MessageComponent msg = {questionData!} setReplyMessage={setReplyTo} />
 
         </div>) : <p>Loading</p>}
             <ol>
                 {data?.map((response: ResponseData,index: number) => (
-                    <li className="ResponseContainer"><ResponseComponent Response={{
-                        _id: response.Response._id,
-                        Account: response.Response.Account,
-                        Replies: response.Response.Replies,
-                        Date_Created: response.Response.Date_Created,
-                        RepliedTo: response.Response.RepliedTo,
-                        Likes: response.Response.Likes,
-                        Dislikes: response.Response.Dislikes,
-                        Text: response.Response.Text,
-                        Username: response.Response.Username,
-                    }} Comments={response.Comments}></ResponseComponent></li>
+                    <li className="ResponseContainer"><ResponseComponent responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
                 ))}
 
             </ol>

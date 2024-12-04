@@ -67,5 +67,12 @@ export default class QuestionPageService {
             }
             return Responses;
         }
+
+    }
+    static async postReply(MessageId: string,text: string): Promise<any> {
+        const response = await axios.post(`http://localhost:8000/public-forum/messages/` + MessageId,{
+            Text: text,
+        });
+        return response.status == 201;
     }
 }

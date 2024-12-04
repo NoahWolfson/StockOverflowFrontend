@@ -1,12 +1,16 @@
 import MessageComponent from "../MessageComponent/MessageComponent";
 import {MessageData, ResponseData} from "../QuestionPageService";
-import {useState} from "react";
-const ResponseComponent: React.FC<ResponseData> = (responseData) => {
+import React, {Dispatch, useState} from "react";
+type ResponseComponentProps = {
+    responseData: ResponseData;
+    setReplyMessage: Dispatch<React.SetStateAction<MessageData | undefined>>;
+}
+const ResponseComponent: React.FC<ResponseComponentProps> = ({responseData: responseData, setReplyMessage: setReplyMessage}) => {
     const[showComments, setShowComments] = useState<boolean>(false);
     return (
         <div className = "ResponseComponent">
             <div className="ResponseContainer">
-                <MessageComponent _id={responseData.Response._id} Account={responseData.Response.Account} Replies={responseData.Response.Replies} Date_Created={responseData.Response.Date_Created} RepliedTo={responseData.Response.RepliedTo} Likes={responseData.Response.Likes} Dislikes={responseData.Response.Dislikes} Text={responseData.Response.Text} Username={responseData.Response.Username} />
+                <MessageComponent setReplyMessage={setReplyMessage} msg={{_id: responseData.Response._id, Account: responseData.Response.Account, Replies: responseData.Response.Replies,RepliedTo: responseData.Response.RepliedTo, Likes: responseData.Response.Likes, Dislikes: responseData.Response.Dislikes, Username: responseData.Response.Username,Date_Created: responseData.Response.Date_Created,Text: responseData.Response.Text}}  />
             </div>
             <button className="showCommentsButton" onClick={()=>{
                 setShowComments(!showComments);
@@ -17,7 +21,7 @@ const ResponseComponent: React.FC<ResponseData> = (responseData) => {
                 {
                     responseData.Comments.map((comment: MessageData,index) => (
                         <li className="CommentContainer">
-                            <MessageComponent _id={comment._id} Account={comment.Account} Replies={comment.Replies} Date_Created={comment.Date_Created} RepliedTo={comment.RepliedTo} Likes={comment.Likes} Dislikes={comment.Dislikes} Text={comment.Text} Username={comment.Username} />
+                            <MessageComponent setReplyMessage={setReplyMessage} msg={comment!} />
                         </li>
                     ))
                 }
