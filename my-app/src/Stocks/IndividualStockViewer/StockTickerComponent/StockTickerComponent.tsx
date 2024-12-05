@@ -9,37 +9,33 @@ interface StockTickerProps {
 }
 
 const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
-
-    const [StockTickerData, setStockTickerData] = useState<any| null>(null);
     const [Error, setError] = useState<any|null>(null);
-    const [PrevPercentage, setPrevPercentage] = useState<Number| 0>(0);
-    const [PrevChange, setPrevChange] = useState<Number| 0>(0);
+    const [PrevPrice, setPrevPrice] = useState<Number| 0>(0);
     const [Price, setPrice] = useState<Number| 0>(0);
     const [Percentage, setPercentage] = useState<number| 0>(0);
     const [Change, setChange] = useState<Number| 0>(0);
     const [ChangeNumClassName, setChangeNumClassName] = useState<string>("");
     useEffect(() => {
         let interval: NodeJS.Timeout
+        //this function is responsible for updating the stock ticker itself in a certain number of seconds decared by teh setInterval function
         const fetchStockTickerData = async () => {
             try {
                 console.log(ticker)
                 const fetchStockTickerData = await IndividualStockViewerAPIService.getBasicStockData(ticker || 'Err');
                 console.log(fetchStockTickerData);
                 console.log('again')
-                setPrevChange(Change);
-                setPrevPercentage(Percentage);
-                setPrice(Number(fetchStockTickerData[0]['Data']['data']["price"]));
-                setChange(Number(fetchStockTickerData[0]['Data']['data']["change"]));
-                setPercentage(Number(fetchStockTickerData[0]['Data']['data']["change_percent"]));
-                changeClassName(Number(fetchStockTickerData[0]['Data']['data']["price"]), PrevChange);
-                changeClassName(Number(fetchStockTickerData[0]['Data']['data']["price"]), PrevPercentage);
+                setPrevPrice(Price)
+                setPrice(Number(fetchStockTickerData[0]['Data']['quoteSummary']['result'][0]["price"]['regularMarketPrice']['fmt']));
+                setChange(fetchStockTickerData[0]['Data']['quoteSummary']['result'][0]["price"]['regularMarketChange']['fmt']);
+                setPercentage(fetchStockTickerData[0]['Data']['quoteSummary']['result'][0]["price"]['regularMarketChangePercent']['fmt']);
+                changeClassName(Price, PrevPrice);
             } catch (err:any) {
                 console.error(err);
                 setError('Cannot Provide the Data now');
             }
         }
         fetchStockTickerData();
-        interval = setInterval(fetchStockTickerData, 50000);
+        interval = setInterval(fetchStockTickerData, 5000);
         return () => clearInterval(interval);
         function changeClassName(curr: Number, prev: Number) {
             console.log('prev ' + prev + " "+ curr)
@@ -52,13 +48,13 @@ const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
             }
             setTimeout(() => {
                 setChangeNumClassName("");
-            }, 5000)
+            }, 500)
         }
-    }, [ticker])
+    }, [PrevPrice, Price, ticker])
     return (
         <div className="stockTicker">
             <div className="change_percentage_container">
-                <p className={`price_label percentage ${ChangeNumClassName}`}>%{parseFloat(Percentage.toFixed(2)).toString()}</p>
+                <p className={`price_label percentage ${ChangeNumClassName}`}>%{(Percentage).toString()}</p>
             </div>
             <div className="market_cap_container">
                 <p className="price_label market_cap">{Price.toString()}</p>
