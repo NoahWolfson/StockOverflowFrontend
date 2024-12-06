@@ -14,8 +14,13 @@ const ReplyBoxComponent: React.FC<ReplyBoxComponentProps> = (props)=>{
     }
     return (
         <div className="ReplyBox">
-            <h1 className="ReplyBoxHeader">Replying to {props.messageData.Username}</h1>
-            (show && <textarea className="replyTextArea">)
-        </textarea>
-        </div>)
+            <h5 className="ReplyBoxButtons">
+                <button className="HideReplyBox" onClick={hideBox}>Hide Reply</button>
+                <button className="ShowReplyBox" onClick={showBox}>Show Reply</button>
+            </h5>
+            <label className="ReplyBoxLabel">Replying to {props.messageData.Username}
+                (show && <textarea className="replyTextArea"></textarea>)
+            </label>
+        </div>);
 }
+export default ReplyBoxComponent;

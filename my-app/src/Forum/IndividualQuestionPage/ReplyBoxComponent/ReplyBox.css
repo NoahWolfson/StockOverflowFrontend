@@ -1,0 +1,9 @@
+.ReplyBox {
+    width: 80vw;
+    height: 20vh;
+    justify-self: left;
+    display: contents;
+    position: fixed;
+    bottom: 0;
+    border: slategray 2px double;
+}

@@ -3,26 +3,43 @@ import QuestionPageService,{ResponseData,MessageData} from "./QuestionPageServic
 import MessageComponent from "./MessageComponent/MessageComponent";
 import ResponseComponent from "./ResponseComponent/ResponseComponent";
 import {useParams} from "react-router-dom";
+import ReplyBoxComponent from "./ReplyBoxComponent/ReplyBoxComponent";
 type QuestionPageParams = {
     QuestionId?: string;
 }
-const IndividualQuestionComponent: React.FC = ()=>{
+type isAuthenticated = {
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+/**This component represents the Individual Question Page in its entirety.
+ * It uses the QuestionPageService functions to update its state from the backend, ultimately from the database.
+ *
+ * @constructor
+ */
+const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthenticated})=>{
     const [data, setData] = React.useState<Array<ResponseData>>([]);
     const [questionData, setQuestionData] = React.useState<MessageData | null>(null);
     const {QuestionId} = useParams<QuestionPageParams>();
     const [replyTo, setReplyTo] = React.useState<MessageData>();
     const [isDone, setIsDone] = React.useState(false);
+    const [userId, setUserId] = React.useState<string>();
     useEffect(()=>{
         const update = async function(){
-            setQuestionData(await QuestionPageService.getMessage(QuestionId || "Err"));
-            let response = await QuestionPageService.getPage(QuestionId || "Err");
-            setData(response);
-            setIsDone(questionData != null);
-            console.log(questionData);
+            try {
+                let qData = await QuestionPageService.getMessage(QuestionId || "Err");
+                console.log(qData.Username);
+                setQuestionData(qData);
+                let response = await QuestionPageService.getPage(QuestionId || "Err");
+                setData(response.Responses);
+                setIsAuthenticated(response.isAuthenticated);
+                setUserId(response.userId);
+                setIsDone(questionData != null);
+                console.log(questionData);
+            }catch (err: any){
+                return;
+            }
+            setTimeout(update, 1000);
         }
         update();
-        const intervalId = setInterval(update, 100);
-        return () => clearInterval(intervalId);
     })
     return (
         <div className="body">
@@ -33,10 +50,11 @@ const IndividualQuestionComponent: React.FC = ()=>{
         </div>) : <p>Loading</p>}
             <ol>
                 {data?.map((response: ResponseData,index: number) => (
-                    <li className="ResponseContainer"><ResponseComponent responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
+                    <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
                 ))}
 
             </ol>
+            {replyTo ? (<ReplyBoxComponent messageData={replyTo}></ReplyBoxComponent>):<footer>Loading</footer>}
     </div>);
 }
 export default IndividualQuestionComponent;

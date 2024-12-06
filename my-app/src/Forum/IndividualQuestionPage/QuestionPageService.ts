@@ -37,7 +37,8 @@ export default class QuestionPageService {
         const response = await axios.get(`http://localhost:8000/public-forum/questions/` + QuestionId + "/page");
         if(response.status >= 200 && response.status < 300) {
             const Responses: Array<ResponseData> = []
-            for(let item of response.data) {
+            console.log(response.data);
+            for(let item of response.data.responses) {
                 let comments: MessageData[] = []
                 let response: MessageData = {
                     Dislikes: item.Response.Dislikes,
@@ -65,7 +66,8 @@ export default class QuestionPageService {
                 }
                 Responses.push({Response: response, Comments: comments});
             }
-            return Responses;
+            return {Responses: Responses,isAuthenticated: response.data.isAuthenticated,
+                userId: response.data.userId};
         }
 
     }
@@ -74,5 +76,8 @@ export default class QuestionPageService {
             Text: text,
         });
         return response.status == 201;
+    }
+    static async likeMessage(MessageId: string): Promise<any> {
+        const response = await axios.get(`http://localhost:8000/public-forum/messages/` + MessageId);
     }
 }
