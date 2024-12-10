@@ -95,7 +95,27 @@
     color: #007BFF;
     font-weight: bold;
 }
+/* Profile picture container */
+.profile-pic-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* Adjust as needed to fit the navbar */
+    height: 60px; /* Ensure it's a perfect circle */
+    margin-left: 15px; /* Spacing from the other navigation elements */
+    overflow: hidden; /* Ensures the image stays within the circle */
+    border-radius: 50%; /* Makes the container round */
+    background-color: #f0f0f0; /* Fallback background color if no image is loaded */
+    border: 2px solid #007BFF; /* Optional border around the picture */
+}
 
+/* Profile picture styling */
+.profile-pic {
+    width: 100%; /* Ensure the image fills the container */
+    height: 100%; /* Maintain the aspect ratio */
+    object-fit: cover; /* Crop and center the image within the container */
+    border-radius: 50%; /* Make the image itself round */
+}
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
     .header {

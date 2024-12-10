@@ -9,7 +9,7 @@ export default class GenrelRoutesAPIService {
     static async getHomeData(): Promise<any> {
         try {
             const response = await axiosInstance.get("/"); // Replace '/home' with your backend route
-            return response.data; // Return the actual response data
+            return response; // Return the actual response data
         } catch (error) {
             console.error("Failed to fetch Home data:", error);
             throw new Error("Failed to fetch Home data");

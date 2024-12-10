@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
+import { AuthType } from './Interfaces/AuthType';
 
 interface AuthContextType {
-    isAuthenticated: boolean;
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    isAuthenticated: AuthType;
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
 }
 
 // Create the context
@@ -22,7 +23,7 @@ export const useAuth = (): AuthContextType => {
 
 // AuthProvider component
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState({isAuth: "", picStr: ""});
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

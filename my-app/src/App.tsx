@@ -11,6 +11,7 @@ import Layout from './Layout';
 import StockRouter from './Stocks/StocksRouter';
 import { AuthProvider } from './useAuth';
 import HomeComponent from './GeneralRoutes/Home/HomeComponent';
+import UserRouter from './UserPages/UserRouter';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='stocks/*' element={<StockRouter />} />
            <Route path='forum/*' element={<QuestionPage/>}></Route>
           <Route path='auth/*' element={<AuthenticationComponent />} />
+          <Route path='user/*' element={<UserRouter/>} />
         </Route>
       </Routes>
     </Router>
