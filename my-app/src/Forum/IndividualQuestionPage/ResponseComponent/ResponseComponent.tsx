@@ -3,7 +3,8 @@ import {MessageData, ResponseData} from "../QuestionPageService";
 import React, {Dispatch, useState} from "react";
 type ResponseComponentProps = {
     responseData: ResponseData;
-    setReplyMessage: Dispatch<React.SetStateAction<MessageData | undefined>>;
+    setReplyMessage: (msg: MessageData) => void;
+    setIsAuthorized: (isAuthorized: boolean) => void;
 }
 const ResponseComponent: React.FC<ResponseComponentProps> = ({responseData: responseData, setReplyMessage: setReplyMessage}) => {
     const[showComments, setShowComments] = useState<boolean>(false);

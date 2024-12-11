@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import QuestionPageService,{ResponseData,MessageData} from "./QuestionPageService";
 import MessageComponent from "./MessageComponent/MessageComponent";
 import ResponseComponent from "./ResponseComponent/ResponseComponent";
@@ -22,38 +22,39 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthentica
     const [replyTo, setReplyTo] = React.useState<MessageData>();
     const [isDone, setIsDone] = React.useState(false);
     const [userId, setUserId] = React.useState<string>();
+    const [error, setError] = useState<any | null>(null);
     useEffect(()=>{
         const update = async function(){
             try {
                 let qData = await QuestionPageService.getMessage(QuestionId || "Err");
-                console.log(qData.Username);
                 setQuestionData(qData);
                 let response = await QuestionPageService.getPage(QuestionId || "Err");
                 setData(response.Responses);
                 setIsAuthenticated(response.isAuthenticated);
                 setUserId(response.userId);
                 setIsDone(questionData != null);
-                console.log(questionData);
             }catch (err: any){
                 return;
             }
-            setTimeout(update, 1000);
+            setTimeout(update, 1500);
         }
         update();
-    })
+    },[]);
     return (
         <div className="body">
             {isDone ? (
         <div className = "questionContainer">
-            <MessageComponent msg = {questionData!} setReplyMessage={setReplyTo} />
+            <MessageComponent setIsAuthorized={setIsAuthenticated} msg = {questionData!} setReplyMessage={setReplyTo} />
 
-        </div>) : <p>Loading</p>}
+        </div>) : (<p>Loading Question</p>)}
+            {data ?(
             <ol>
-                {data?.map((response: ResponseData,index: number) => (
-                    <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
+                {data.map((response: ResponseData,index: number) => (
+                    <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent setIsAuthorized={setIsAuthenticated} responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
                 ))}
 
-            </ol>
+            </ol>) : <p>Loading Responses</p>
+            }
             {replyTo ? (<ReplyBoxComponent messageData={replyTo}></ReplyBoxComponent>):<footer>Loading</footer>}
     </div>);
 }

@@ -2,7 +2,6 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import {useAuth} from "../useAuth";
 import IndividualQuestionComponent from "./IndividualQuestionPage/IndividualQuestionComponent";
-import IndividualStockComponent from "../Stocks/IndividualStockViewer/IndividualStockComponent";
 const QuestionsRouter: React.FC = () => {
     const { setIsAuthenticated } = useAuth();
     return (

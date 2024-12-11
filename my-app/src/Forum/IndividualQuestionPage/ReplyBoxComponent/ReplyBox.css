@@ -1,9 +1,10 @@
 .ReplyBox {
     width: 80vw;
     height: 20vh;
-    justify-self: left;
     display: contents;
     position: fixed;
+    background-color: darkslategray;
     bottom: 0;
+    left: 0;
     border: slategray 2px double;
 }

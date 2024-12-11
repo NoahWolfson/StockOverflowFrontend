@@ -1,4 +1,6 @@
 import axios from "axios"
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 export type MessageData = {
     _id: string;
@@ -78,6 +80,14 @@ export default class QuestionPageService {
         return response.status == 201;
     }
     static async likeMessage(MessageId: string): Promise<any> {
-        const response = await axios.get(`http://localhost:8000/public-forum/messages/` + MessageId);
+        const response = await axios.patch(`http://localhost:8000/public-forum/like/` + MessageId).then(resp=>{
+            return resp;
+        }).catch(error =>{
+            if(error.resp.status == 401){
+                alert("Please Log in first");
+                return error.resp;
+            }
+        });
+        return({isAuthenticated: response?.data.isAuthenticated,userId: response?.data.userId});
     }
 }

@@ -18,8 +18,8 @@ const ReplyBoxComponent: React.FC<ReplyBoxComponentProps> = (props)=>{
                 <button className="HideReplyBox" onClick={hideBox}>Hide Reply</button>
                 <button className="ShowReplyBox" onClick={showBox}>Show Reply</button>
             </h5>
-            <label className="ReplyBoxLabel">Replying to {props.messageData.Username}
-                (show && <textarea className="replyTextArea"></textarea>)
+            <label className="ReplyBoxLabel">{"Replying to " + props.messageData.Username}
+                {show ? ( <textarea className="replyTextArea"></textarea>) : null}
             </label>
         </div>);
 }

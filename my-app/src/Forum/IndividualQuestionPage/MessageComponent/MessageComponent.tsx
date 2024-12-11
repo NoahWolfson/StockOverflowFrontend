@@ -1,22 +1,27 @@
 import React, {useEffect} from "react";
-import {MessageData} from "../QuestionPageService";
+import QuestionPageService, {MessageData} from "../QuestionPageService";
 import './Message.css'
 type MessageComponentProps = {
     msg: MessageData,
-    setReplyMessage: React.Dispatch<React.SetStateAction<MessageData | undefined>>;
+    setReplyMessage: (msg: MessageData) => void,
+    setIsAuthorized: (isAuthorized: boolean) => void,
 }
 const MessageComponent: React.FC<MessageComponentProps> = (props) => {
-    const clickReply = () =>{
+    const handleReply= () =>{
         props.setReplyMessage(props.msg);
+        console.log("child clicked");
+    }
+    const handleLike = () =>{
+        QuestionPageService.likeMessage(props.msg._id);
     }
     return (<div className = "MessageComponent">
         <h5 className="MessageHeader">{props.msg.Username} at {props.msg.Date_Created.toString()}</h5>
         <div className={"MessageText"}>{props.msg.Text}</div>
         <div className="MessageButtons">
-            <button className="LikeButton">Likes: {props.msg.Likes}</button>
+            <button className="LikeButton" onClick={handleLike}>Likes: {props.msg.Likes}</button>
             <button className = "ClearLike">Clear Like/Dislike</button>
             <button className="DislikeButton">Dislikes: {props.msg.Dislikes}</button>
-            <button className="ReplyButton" onClick={clickReply}>Click to Reply</button>
+            <button className="ReplyButton" onClick={handleReply}>Click to Reply</button>
         </div>
     </div>)
 }
