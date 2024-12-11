@@ -1,4 +1,6 @@
 import axios from "axios"
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 export type MessageData = {
     _id: string;
@@ -37,7 +39,8 @@ export default class QuestionPageService {
         const response = await axios.get(`http://localhost:8000/public-forum/questions/` + QuestionId + "/page");
         if(response.status >= 200 && response.status < 300) {
             const Responses: Array<ResponseData> = []
-            for(let item of response.data) {
+            console.log(response.data);
+            for(let item of response.data.responses) {
                 let comments: MessageData[] = []
                 let response: MessageData = {
                     Dislikes: item.Response.Dislikes,
@@ -65,7 +68,26 @@ export default class QuestionPageService {
                 }
                 Responses.push({Response: response, Comments: comments});
             }
-            return Responses;
+            return {Responses: Responses,isAuthenticated: response.data.isAuthenticated,
+                userId: response.data.userId};
         }
+
+    }
+    static async postReply(MessageId: string,text: string): Promise<any> {
+        const response = await axios.post(`http://localhost:8000/public-forum/messages/` + MessageId,{
+            Text: text,
+        });
+        return response.status == 201;
+    }
+    static async likeMessage(MessageId: string): Promise<any> {
+        const response = await axios.patch(`http://localhost:8000/public-forum/like/` + MessageId).then(resp=>{
+            return resp;
+        }).catch(error =>{
+            if(error.resp.status == 401){
+                alert("Please Log in first");
+                return error.resp;
+            }
+        });
+        return({isAuthenticated: response?.data.isAuthenticated,userId: response?.data.userId});
     }
 }
