@@ -47,7 +47,7 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
                 setUserData(response.data.currAccount)
                 let currUser: string = response.data.currUser;
                 let currPic: string = response.data.profilePicture;
-                setIsAuthenticated({'isAuth': currUser, picStr:  currPic})
+                setIsAuthenticated({'accountId': currUser, picStr:  currPic})
                 setUsername(response.data.currAccount.Username);
                 setEmail(response.data.currAccount.Email);
                 setSelectedPicture(response.data.currAccount.ProfileImage)

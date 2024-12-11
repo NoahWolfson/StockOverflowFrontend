@@ -1,4 +1,4 @@
 export interface AuthType {
-    isAuth: string,
+    accountId: string,
     picStr: string
 }

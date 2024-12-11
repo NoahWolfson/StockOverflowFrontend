@@ -23,7 +23,7 @@ export const useAuth = (): AuthContextType => {
 
 // AuthProvider component
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState({isAuth: "", picStr: ""});
+    const [isAuthenticated, setIsAuthenticated] = useState({accountId: "", picStr: ""});
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

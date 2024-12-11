@@ -29,21 +29,24 @@
     justify-content: center;
 }
 
-/* Stock Box */
+
+/* Container for the X button */
+
+/* Stock Box Container */
 .stock-box {
+    position: relative; /* Make the X button position relative to this container */
     width: 100%;
     background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
 }
 
 .stock-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Elevate on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    
 }
 
 /* Stock Name */

@@ -33,7 +33,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                 setUserData(response.data)
                 let currUser: string = response.data.currUser;
                 let currPic: string = response.data.profilePicture;
-                setIsAuthenticated({'isAuth': currUser, picStr:  currPic})
+                setIsAuthenticated({'accountId': currUser, picStr:  currPic})
                 console.log('userdata');
                 console.log(userData)
             } catch (error) {
@@ -86,7 +86,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                         </div>
                     </div>
                     <div className="profile-stocks-followed">
-                        <UserStockComponent stockData={userData.userStocks} />
+                        <UserStockComponent stockData={userData.userStocks} accountId={userData.currUser}   />
                     </div>
                 </div>
             </div>

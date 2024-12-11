@@ -56,10 +56,10 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
                 </div>
                 <div className="login_container">
                     <div className="ind_navigator_container">
-                        {isAuthticated.isAuth !== ""? <p className="ind_navigator" onClick={logout}>Logout</p> : <Link className="ind_navigator" to="/auth/login">Login</Link>}
+                        {isAuthticated.accountId !== ""? <p className="ind_navigator" onClick={logout}>Logout</p> : <Link className="ind_navigator" to="/auth/login">Login</Link>}
                     </div>
                     <div className="profile-pic-container">
-                        {isAuthticated.isAuth ? <Link to={`/user/${isAuthticated.isAuth}/profile`}><img className="profile-pic" alt='profileImg' src={isAuthticated.picStr !== "" || isAuthticated.picStr ? isAuthticated.picStr : "/profile-default-img.png"}></img></Link> : ""}
+                        {isAuthticated.accountId ? <Link to={`/user/${isAuthticated.accountId}/profile`}><img className="profile-pic" alt='profileImg' src={isAuthticated.picStr !== "" || isAuthticated.picStr ? isAuthticated.picStr : "/profile-default-img.png"}></img></Link> : ""}
                     </div>
                 </div>
             </nav>

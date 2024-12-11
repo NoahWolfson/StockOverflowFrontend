@@ -34,7 +34,7 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
             setMessage(fetchedMessage);
             let currUser: string = fetchedMessage.currUser;
             let currPic: string = fetchedMessage.profilePicture;
-            setIsAuthenticated({'isAuth': currUser, picStr:  currPic})
+            setIsAuthenticated({'accountId': currUser, picStr:  currPic})
             setUserId(fetchedMessage.userId)
           } catch (err: any) {
             setError(err.message);

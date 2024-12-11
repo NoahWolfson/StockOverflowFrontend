@@ -13,10 +13,10 @@ const HomeComponent: React.FC = () => {
                 console.log(response)
                 let currUser: string = response.data.currUser;
                 let currPic: string = response.data.profilePicture;
-                setIsAuthenticated({'isAuth': currUser, picStr: currPic})
+                setIsAuthenticated({'accountId': currUser, picStr: currPic})
             } catch (error) {
                 console.log("Failed to fetch home data:", error);
-                setIsAuthenticated({'isAuth': "", picStr:  ""})
+                setIsAuthenticated({'accountId': "", picStr:  ""})
             }
         };
 
