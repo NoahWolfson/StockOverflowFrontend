@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthenticationPageLogoSide from "../AuthenticationPageLogoSide";
 import AtuhAPIService from "../AuthBackendRoutes";
 
@@ -8,6 +8,7 @@ const LoginInComponent: React.FC = () => {
     const [username, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alertMsg, setAlertMsg] = useState("");
+    const navigator = useNavigate()
     /**
      * this dictionary will test if all the requirements are fulfilled or not
      */
@@ -29,6 +30,8 @@ const LoginInComponent: React.FC = () => {
             console.log(respone)
             if (respone.status === 422) {
                 setAlertMsg(respone.msg)
+            } else {
+                navigator('/')
             }
 
         } catch (error) {

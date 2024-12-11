@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './navigation.css';
 import AtuhAPIService from "../Authentication/AuthBackendRoutes";
+import { AuthType } from "../Interfaces/AuthType";
 
 interface Authenticated {
-    isAuthticated: boolean
+    isAuthticated: AuthType
 }
 
 export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
@@ -55,7 +56,10 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
                 </div>
                 <div className="login_container">
                     <div className="ind_navigator_container">
-                        {isAuthticated ? <p className="ind_navigator" onClick={logout}>Logout</p> : <Link className="ind_navigator" to="/auth/login">Login</Link>}
+                        {isAuthticated.accountId !== ""? <p className="ind_navigator" onClick={logout}>Logout</p> : <Link className="ind_navigator" to="/auth/login">Login</Link>}
+                    </div>
+                    <div className="profile-pic-container">
+                        {isAuthticated.accountId ? <Link to={`/user/${isAuthticated.accountId}/profile`}><img className="profile-pic" alt='profileImg' src={isAuthticated.picStr !== "" || isAuthticated.picStr ? isAuthticated.picStr : "/profile-default-img.png"}></img></Link> : ""}
                     </div>
                 </div>
             </nav>

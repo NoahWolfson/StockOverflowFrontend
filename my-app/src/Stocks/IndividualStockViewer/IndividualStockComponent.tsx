@@ -9,12 +9,13 @@ import CompanyOverviewComponent from "./CompanyOverview/CompanyOverviewComponent
 import './IndividualStock.css'
 import EarningsChartComponent from "./EarningsComponent/EarningsComponent";
 import StockFinancialComponent from "./StockFinancialDataComponent/StockFinancialDataComponent";
+import { AuthType } from "../../Interfaces/AuthType";
 
 type StockPageParams = {
   stockTicker?: string; 
 }
 type isAuthenticated = {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
 }
 const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
     const [alertMsg, setAlertMsg] = useState("");
@@ -31,7 +32,9 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
             const fetchedMessage: any = await IndividualStockViewerAPIService.getIndStockData(stockTicker || 'Err');
             console.log(fetchMessage)
             setMessage(fetchedMessage);
-            setIsAuthenticated(fetchedMessage.isAuthenticated)
+            let currUser: string = fetchedMessage.currUser;
+            let currPic: string = fetchedMessage.profilePicture;
+            setIsAuthenticated({'accountId': currUser, picStr:  currPic})
             setUserId(fetchedMessage.userId)
           } catch (err: any) {
             setError(err.message);

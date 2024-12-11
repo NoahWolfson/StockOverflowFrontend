@@ -7,7 +7,9 @@ const config: AxiosRequestConfig = {
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
 };
-
+/**
+ * this class is responsible for calling the backend api endpoints to get stock data 
+ */
 export default class IndividualStockViewerAPIService {
     /**
      * Fetch individual stock data.
