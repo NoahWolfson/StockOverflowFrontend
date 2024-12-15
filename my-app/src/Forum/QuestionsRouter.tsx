@@ -6,7 +6,7 @@ const QuestionsRouter: React.FC = () => {
     const { setIsAuthenticated } = useAuth();
     return (
         <Routes>
-            <Route path="questions/:QuestionId" element={<IndividualQuestionComponent setIsAuthenticated={setIsAuthenticated}/>} />
+            <Route path=":QuestionId" element={<IndividualQuestionComponent setAuth={setIsAuthenticated}/>} />
         </Routes>
     );
 };

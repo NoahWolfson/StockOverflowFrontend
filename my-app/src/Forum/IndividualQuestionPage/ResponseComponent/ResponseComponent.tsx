@@ -1,17 +1,28 @@
 import MessageComponent from "../MessageComponent/MessageComponent";
 import {MessageData, ResponseData} from "../QuestionPageService";
 import React, {Dispatch, useState} from "react";
+import {AuthType} from "../../../Interfaces/AuthType";
 type ResponseComponentProps = {
     responseData: ResponseData;
     setReplyMessage: (msg: MessageData) => void;
-    setIsAuthorized: (isAuthorized: boolean) => void;
+    setAuth: (auth: AuthType) => void;
 }
-const ResponseComponent: React.FC<ResponseComponentProps> = ({responseData: responseData, setReplyMessage: setReplyMessage}) => {
+const ResponseComponent: React.FC<ResponseComponentProps> = (props) => {
     const[showComments, setShowComments] = useState<boolean>(false);
     return (
         <div className = "ResponseComponent">
             <div className="ResponseContainer">
-                <MessageComponent setReplyMessage={setReplyMessage} msg={{_id: responseData.Response._id, Account: responseData.Response.Account, Replies: responseData.Response.Replies,RepliedTo: responseData.Response.RepliedTo, Likes: responseData.Response.Likes, Dislikes: responseData.Response.Dislikes, Username: responseData.Response.Username,Date_Created: responseData.Response.Date_Created,Text: responseData.Response.Text}}  />
+                <MessageComponent setReplyMessage={props.setReplyMessage} msg={{
+                    _id: props.responseData.Response._id,
+                    Account: props.responseData.Response.Account,
+                    Replies: props.responseData.Response.Replies,
+                    RepliedTo: props.responseData.Response.RepliedTo,
+                    Likes: props.responseData.Response.Likes,
+                    Dislikes: props.responseData.Response.Dislikes,
+                    Username: props.responseData.Response.Username,
+                    Date_Created: props.responseData.Response.Date_Created,
+                    Text: props.responseData.Response.Text
+                }} setIsAuthorized={props.setAuth}  />
             </div>
             <button className="showCommentsButton" onClick={()=>{
                 setShowComments(!showComments);
@@ -20,9 +31,10 @@ const ResponseComponent: React.FC<ResponseComponentProps> = ({responseData: resp
             </button>
             {showComments && (<ol className="Comments">
                 {
-                    responseData.Comments.map((comment: MessageData,index) => (
+                    props.responseData.Comments.map((comment: MessageData,index) => (
                         <li className="CommentContainer">
-                            <MessageComponent setReplyMessage={setReplyMessage} msg={comment!} />
+                            <MessageComponent setReplyMessage={props.setReplyMessage} msg={comment!}
+                                              setIsAuthorized={props.setAuth} />
                         </li>
                     ))
                 }

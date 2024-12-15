@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import QuestionPageService, {MessageData} from "../QuestionPageService";
 import './Message.css'
+import {AuthType} from "../../../Interfaces/AuthType";
 type MessageComponentProps = {
     msg: MessageData,
     setReplyMessage: (msg: MessageData) => void,
-    setIsAuthorized: (isAuthorized: boolean) => void,
+    setIsAuthorized: (auth: AuthType) => void,
 }
 const MessageComponent: React.FC<MessageComponentProps> = (props) => {
     const handleReply= () =>{
@@ -12,7 +13,7 @@ const MessageComponent: React.FC<MessageComponentProps> = (props) => {
         console.log("child clicked");
     }
     const handleLike = () =>{
-        QuestionPageService.likeMessage(props.msg._id);
+        QuestionPageService.likeMessage(props.msg._id,props.setIsAuthorized);
     }
     return (<div className = "MessageComponent">
         <h5 className="MessageHeader">{props.msg.Username} at {props.msg.Date_Created.toString()}</h5>

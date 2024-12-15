@@ -1,9 +1,9 @@
 import QuestionsRouter from "./QuestionsRouter";
 import React from "react";
 
-const QuestionPage: React.FC = () => {
+const AuthenticationComponent: React.FC = () => {
     return (
         <QuestionsRouter/>
     )
 }
-export default QuestionPage;
+export default AuthenticationComponent;
