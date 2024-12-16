@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import QuestionPageService, {MessageData} from "../QuestionPageService";
 import './Message.css'
+import { AuthType } from "../../../Interfaces/AuthType";
 type MessageComponentProps = {
     msg: MessageData,
     setReplyMessage: (msg: MessageData) => void,
-    setIsAuthorized: (isAuthorized: boolean) => void,
+    setIsAuthorized: (isAuthorized: AuthType) => void,
 }
 const MessageComponent: React.FC<MessageComponentProps> = (props) => {
     const handleReply= () =>{

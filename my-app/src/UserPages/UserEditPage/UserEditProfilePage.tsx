@@ -22,16 +22,24 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
     const [profDesc, setProfDesc] = useState("");
+    const [gotUserInfo, setGotUserInfo] = useState(false);
     const [selectedPicture, setSelectedPicture] = useState<File | undefined> (undefined);
     const [RecieveMsgPublicForum, setRecieveMsgPublicForum] = useState(false);
     const [ReceiveMsgLiked, setReceiveMsgLiked] = useState(false);
     const [RecieveStockMsg, setRecieveStockMsg] = useState(false);
     const navigator = useNavigate()
 
-    const submitUserEditPage = async () => {
+    const submitUserEditPage = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); 
         try {
+            if (!birthday || isNaN(new Date(birthday).getTime())) {
+                alert("Please provide a birthday.");
+                return;
+            }
             let currBirthdate: Date = new Date(birthday)
             console.log(selectedPicture)
+            console.log('one of the fields')
+            console.log(RecieveStockMsg)
             const response = await UserAPIService.postUserEditProfilePage(username, email, currBirthdate, profDesc, RecieveMsgPublicForum, ReceiveMsgLiked, RecieveStockMsg, userId, selectedPicture);
             console.log(response);
         } catch (error) {
@@ -44,6 +52,8 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
             try {
                 const response = await UserAPIService.getUserEditProfilePage(userId);
                 console.log(response)
+                setGotUserInfo(true);
+                console.log('is running')
                 setUserData(response.data.currAccount)
                 let currUser: string = response.data.currUser;
                 let currPic: string = response.data.profilePicture;
@@ -53,16 +63,18 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
                 setSelectedPicture(response.data.currAccount.ProfileImage)
                 setBirthday(response.data.currAccount.Birthday);
                 setProfDesc(response.data.currAccount.ProfileDesc);
-                setRecieveMsgPublicForum(response.data.currAccount.RecieveResponseNotifications);
-                setReceiveMsgLiked(response.data.currAccount.RecieveLikedNotifications);
-                setRecieveStockMsg(response.data.currAccount.RecieveStockNewsNotifications);
+                setRecieveMsgPublicForum(response.data.currAccount.RecieveResponseNotifications ? true : false);
+                setReceiveMsgLiked(response.data.currAccount.RecieveLikedNotifications ? true : false);
+                setRecieveStockMsg(response.data.currAccount.RecieveStockNewsNotifications ? true : false);
             }
             catch (error) {
                 console.log(error)
             }
         }
-        getUserProfliePage()
-    }, [userId, setIsAuthenticated])
+        if (!gotUserInfo) {
+            getUserProfliePage()
+        }
+    }, [userId, setIsAuthenticated, setGotUserInfo, gotUserInfo])
     if (!userData) {
         return (<h3>Loading</h3>)
     }

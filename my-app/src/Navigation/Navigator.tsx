@@ -45,7 +45,7 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
                         <Link className="ind_navigator" to="/about">About</Link>
                     </div>
                     <div className="ind_navigator_container">
-                        <Link className="ind_navigator" to="/public-forum">Public Forum</Link>
+                        <Link className="ind_navigator" to="/forum">Public Forum</Link>
                     </div>
                     <div className="ind_navigator_container">
                         <Link className="ind_navigator" to="/stocks">Stocks</Link>
@@ -59,7 +59,7 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
                         {isAuthticated.accountId !== ""? <p className="ind_navigator" onClick={logout}>Logout</p> : <Link className="ind_navigator" to="/auth/login">Login</Link>}
                     </div>
                     <div className="profile-pic-container">
-                        {isAuthticated.accountId ? <Link to={`/user/${isAuthticated.accountId}/profile`}><img className="profile-pic" alt='profileImg' src={isAuthticated.picStr !== "" || isAuthticated.picStr ? isAuthticated.picStr : "/profile-default-img.png"}></img></Link> : ""}
+                        {isAuthticated.accountId ? <Link to={`/user/${isAuthticated.accountId}/profile`}><img className="profile-pic" alt='profileImg' src={isAuthticated.picStr !== ""  ? isAuthticated.picStr : "/profile-default-img.png"}></img></Link> : ""}
                     </div>
                 </div>
             </nav>
