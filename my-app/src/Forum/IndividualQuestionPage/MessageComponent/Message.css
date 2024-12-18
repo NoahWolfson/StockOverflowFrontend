@@ -10,7 +10,7 @@
     height: 90%;
     width: 15%;
 }
-.ClearLike{
+.ClearLikeButton{
     margin-left: 1vw;
     margin-right: 1vw;
     border: none;
@@ -55,13 +55,12 @@
     border: dodgerblue solid 2px;
     color: black;
     justify-self: center;
-    width: 90vw;
-    height: 30vh;
+    width: 75vw;
+    height: 25vh;
     display: grid;
 
 }
 .MessageHeader{
-    background-color: whitesmoke;
     color: darkslategray;
     text-align: left;
     height: 15%;
@@ -78,4 +77,13 @@
     color: darkslategray;
     min-height: 5vh;
     width: 100%;
+}
+.LikeButton:active{
+    box-shadow: #555555 3px 3px;
+}
+.DislikeButton:active{
+    box-shadow: #555555 3px 3px;
+}
+.ClearLikeButton:active{
+    box-shadow: #555555 3px 3px;
 }

@@ -2,6 +2,7 @@ import MessageComponent from "../MessageComponent/MessageComponent";
 import {MessageData, ResponseData} from "../QuestionPageService";
 import React, {Dispatch, useState} from "react";
 import {AuthType} from "../../../Interfaces/AuthType";
+import './Response.css'
 type ResponseComponentProps = {
     responseData: ResponseData;
     setReplyMessage: (msg: MessageData) => void;

@@ -1,10 +1,10 @@
 .ReplyBox {
-    width: 80vw;
-    height: 20vh;
-    display: contents;
+    align-items: center;
+    width: 100%;
     position: fixed;
-    background-color: darkslategray;
+    display: flex;
+    flex-direction: column;
     bottom: 0;
-    left: 0;
+    background-color: darkred;
     border: slategray 2px double;
 }

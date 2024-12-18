@@ -18,34 +18,36 @@ type isAuthenticated = {
  */
 const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setAuth})=>{
     const [data, setData] = React.useState<Array<ResponseData>>([]);
-    const [questionData, setQuestionData] = React.useState<MessageData | null>(null);
+    const [question, setQuestion] = React.useState<MessageData>();
     const {QuestionId} = useParams<QuestionPageParams>();
     const [replyTo, setReplyTo] = React.useState<MessageData>();
     const [isDone, setIsDone] = React.useState(false);
-    const [userId, setUserId] = React.useState<string>();
-    const [error, setError] = useState<any | null>(null);
     useEffect(()=>{
         const update = async function(){
             try {
                 let qData = await QuestionPageService.getMessage(QuestionId || "Err",setAuth);
-                setQuestionData(qData);
+                setQuestion(prev=> qData);
                 let response = await QuestionPageService.getPage(QuestionId || "Err",setAuth);
                 setData(response.Responses);
-                setIsDone(questionData != null);
+                if(question != null){
+                    setIsDone(true);
+                }
+                update();
             }catch (err: any){
-                return;
+                console.error(err);
+                setTimeout(update,500);
             }
-            setTimeout(update, 1500);
         }
         update();
-    },[setAuth]);
+
+    },[isDone]);
     return (
         <div className="body">
-            {isDone ? (
+            {isDone && (
         <div className = "questionContainer">
-            <MessageComponent setIsAuthorized={setAuth} msg = {questionData!} setReplyMessage={setReplyTo} />
-
-        </div>) : (<p>Loading Question</p>)}
+            <MessageComponent setIsAuthorized={setAuth} msg = {question!} setReplyMessage={setReplyTo} />
+        </div>)}
+            {!isDone && <p>Loading Question</p>}
             {data ?(
             <ol>
                 {data.map((response: ResponseData,index: number) => (
@@ -54,7 +56,7 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setAuth})=>{
 
             </ol>) : <p>Loading Responses</p>
             }
-            {replyTo ? (<ReplyBoxComponent messageData={replyTo}></ReplyBoxComponent>):<footer>Loading</footer>}
+            {replyTo ? (<ReplyBoxComponent messageData={replyTo} setAuth={setAuth}></ReplyBoxComponent>):null}
     </div>);
 }
 export default IndividualQuestionComponent;
