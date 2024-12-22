@@ -26,7 +26,7 @@ const TrendingPageComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
         getTrendingStocks()
     }, [])
     if (!trendingStocks) {
-        return (<p>Loading...</p>)
+        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
     }
     return (
         <div className="TrendingPageBody">

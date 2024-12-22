@@ -48,7 +48,7 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
       }
     
       if (!message) {
-        return <p>Loading...</p>; 
+        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
       }
       
   async function ProcessUserStock(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
@@ -67,7 +67,7 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
   }
 
       return (
-        <div className="body">
+        <div className="StockBody">
           <div className={alertMsg !== "" ? "alertComponent" : "noAlertComponent"}>
                 {alertMsg !== "" ? <p className="alertMsg">{alertMsg}</p>: <p></p>}
           </div>

@@ -22,6 +22,7 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
     const [profDesc, setProfDesc] = useState("");
+    const [error, setError] = useState("");
     const [gotUserInfo, setGotUserInfo] = useState(false);
     const [selectedPicture, setSelectedPicture] = useState<File | undefined> (undefined);
     const [RecieveMsgPublicForum, setRecieveMsgPublicForum] = useState(false);
@@ -51,6 +52,12 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
         const getUserProfliePage = async () => {
             try {
                 const response = await UserAPIService.getUserEditProfilePage(userId);
+                 //will go to 404 route if there was a 404 error
+                 if (response?.status === 404) {
+                    navigator('/404')
+                } else if (response?.status !== 200) {
+                    setError(response?.msg);
+                }
                 console.log(response)
                 setGotUserInfo(true);
                 console.log('is running')
@@ -69,14 +76,14 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
             }
             catch (error) {
                 console.log(error)
-            }
+            } 
         }
         if (!gotUserInfo) {
             getUserProfliePage()
         }
-    }, [userId, setIsAuthenticated, setGotUserInfo, gotUserInfo])
+    }, [userId, setIsAuthenticated, setGotUserInfo, gotUserInfo, navigator])
     if (!userData) {
-        return (<h3>Loading</h3>)
+        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
     }
     console.log(userData)
     /**

@@ -61,13 +61,15 @@ const StockResultsComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
             }
         }
         getStockSearcher();
-        getSearchResults()
-    }, [searchRecommendations, setIsAuthenticated, setSearchResults, stockTicker])
+        getSearchResults();
+    }, [searchRecommendations, setIsAuthenticated, setSearchResults, stockTicker, navigator])
     function StockSearchSearchHandler(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault(); 
         navigator(`/stocks/search-results/${searchTicker}`);
     }
-
+    if (!searchResults) {
+        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
+    }
     return  (
         <div className="StockResultsBody">
             <div className="SeacherContainer">
