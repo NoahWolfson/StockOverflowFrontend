@@ -5,6 +5,9 @@ const config: AxiosRequestConfig = {
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
 };
+/**
+ * this class is responsible for providing backened connection endpoints to the frontend for teh Stock Searcher routes
+ */
 export default class StockSearcherAPIService {
     /**
      * Fetch individual stock data.
