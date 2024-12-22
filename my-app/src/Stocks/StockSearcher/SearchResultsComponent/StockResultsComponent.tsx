@@ -3,6 +3,7 @@ import StockSearcherAPIService from "../StockSearcherAPIService";
 import { AuthType } from "../../../Interfaces/AuthType";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import './StockResultsComponent.css'
+import LoadingComponent from "../../../GeneralRoutes/LoadingPage/LoadingComponent";
 
 type isAuthenticated = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
@@ -68,7 +69,7 @@ const StockResultsComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
         navigator(`/stocks/search-results/${searchTicker}`);
     }
     if (!searchResults) {
-        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
+        return <LoadingComponent/>
     }
     return  (
         <div className="StockResultsBody">

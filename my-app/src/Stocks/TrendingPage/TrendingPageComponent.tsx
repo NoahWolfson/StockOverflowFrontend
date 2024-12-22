@@ -6,6 +6,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel CSS
 import './TrendingPageComponent.css'
 import { Link } from "react-router-dom";
+import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 
 type isAuthenticated = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
@@ -26,7 +27,7 @@ const TrendingPageComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
         getTrendingStocks()
     }, [])
     if (!trendingStocks) {
-        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
+        return <LoadingComponent/>
     }
     return (
         <div className="TrendingPageBody">

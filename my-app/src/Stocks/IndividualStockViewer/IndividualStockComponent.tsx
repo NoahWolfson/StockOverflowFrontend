@@ -10,6 +10,7 @@ import './IndividualStock.css'
 import EarningsChartComponent from "./EarningsComponent/EarningsComponent";
 import StockFinancialComponent from "./StockFinancialDataComponent/StockFinancialDataComponent";
 import { AuthType } from "../../Interfaces/AuthType";
+import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 
 type StockPageParams = {
   stockTicker?: string; 
@@ -48,7 +49,8 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
       }
     
       if (!message) {
-        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
+        return <LoadingComponent/>
+        // return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
       }
       
   async function ProcessUserStock(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {

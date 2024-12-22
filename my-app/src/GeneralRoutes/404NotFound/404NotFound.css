@@ -1,0 +1,17 @@
+.notFoundBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.notFoundPicture {
+    width: 30%;
+    height: 30%;
+    display: flex;
+    margin: auto;
+}
+.notFoundTitleContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserStockComponent from "./UserStockFollowed/UserStockFollowedComponent";
 import './UserProfilePage.css'
 import { AuthType } from "../../Interfaces/AuthType";
+import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 
 type isAuthenticated = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
@@ -56,7 +57,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
         }
     }
     if (!userData) {
-        return <img src="/LoadingImg/loading.gif" alt='loading' className="loadingImg"></img>; 
+        return <LoadingComponent/>
     }
     if (error !== "") {
         return <div className="error">{error}</div>;
