@@ -1,0 +1,121 @@
+/* NOTE: ChatGPT did most of the css. WE fixed around some of the css to better suit our preferences.*/
+.titleDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title {
+    font-size: xx-large;
+    margin: 1%;
+}
+.description {
+    border: none;
+    width: 80%;
+    margin: 1%;
+    text-align: center;
+    font-weight: bolder;
+}
+.CarouselWrapper {
+    max-width: 85%; /* Limit width to 85% of the screen */
+    margin: 0 auto; /* Center horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align items in the center */
+    gap: 20px; /* Add space between categories */
+}
+
+/* Style for the carousel root */
+.carousel-root {
+    width: 100%; /* Carousel uses 100% of the wrapper width */
+    padding: 10px; /* Add padding around the carousel */
+}
+
+/* Trending page body */
+.TrendingPageBody {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+    margin-top: 10%;
+}
+
+/* Category section */
+.TrendingStockCategory {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.TrendingStockCategory h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+/* Individual stock slide */
+.TrendingStockItem {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 95%;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+.TrendingStockItem h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007BFF;
+}
+
+.TrendingStockItem .data {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Responsive carousel styles */
+.carousel .slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    padding: 10px;
+}
+
+.carousel .slide:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Arrows and indicators */
+.carousel .control-arrow {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    color: #fff;
+}
+.TrendingStockItem .symbol {
+    font-size: large;
+    color: #007BFF;
+}
+.carousel .control-dots .dot {
+    background-color: #007BFF;
+    border: none;
+    width: 12px;
+    margin-top: 14%;
+    height: 12px;
+}
+
+/* For large screens */
+@media (min-width: 768px) {
+    .TrendingStockItem {
+        max-width: 90%;
+    }
+}
