@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserStockComponent from "./UserStockFollowed/UserStockFollowedComponent";
 import './UserProfilePage.css'
 import { AuthType } from "../../Interfaces/AuthType";
+import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 
 type isAuthenticated = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
@@ -30,6 +31,13 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
             try {
                 console.log(userId)
                 const response = await UserAPIService.getUserData(userId)
+                console.log(response)
+                //will go to 404 route if there was a 404 error
+                if (response?.status === 404) {
+                    navigator('/404')
+                } else if (response?.status !== 200) {
+                    setError(response?.msg);
+                }
                 setUserData(response.data)
                 let currUser: string = response.data.currUser;
                 let currPic: string = response.data.profilePicture;
@@ -49,11 +57,13 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
         }
     }
     if (!userData) {
-        return <div className="loading">Loading user data...</div>;
+        return <LoadingComponent/>
     }
-
+    if (error !== "") {
+        return <div className="error">{error}</div>;
+    }
     return (
-        <div className="body">
+        <div className="ProfilePageBody">
             <div className="profile-head">
                 <div className="profile-banner">
                     <div className="account-details">

@@ -3,6 +3,7 @@ import StockSearcherAPIService from "../StockSearcherAPIService";
 import { AuthType } from "../../../Interfaces/AuthType";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import './StockResultsComponent.css'
+import LoadingComponent from "../../../GeneralRoutes/LoadingPage/LoadingComponent";
 
 type isAuthenticated = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
@@ -61,13 +62,15 @@ const StockResultsComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
             }
         }
         getStockSearcher();
-        getSearchResults()
-    }, [searchRecommendations, setIsAuthenticated, setSearchResults, stockTicker])
+        getSearchResults();
+    }, [searchRecommendations, setIsAuthenticated, setSearchResults, stockTicker, navigator])
     function StockSearchSearchHandler(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault(); 
         navigator(`/stocks/search-results/${searchTicker}`);
     }
-
+    if (!searchResults) {
+        return <LoadingComponent/>
+    }
     return  (
         <div className="StockResultsBody">
             <div className="SeacherContainer">

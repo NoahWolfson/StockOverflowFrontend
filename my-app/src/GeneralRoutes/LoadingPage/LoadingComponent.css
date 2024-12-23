@@ -1,0 +1,17 @@
+.loadingBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.LoadingPic {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    margin: auto;
+}
+.LoadingTitle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
