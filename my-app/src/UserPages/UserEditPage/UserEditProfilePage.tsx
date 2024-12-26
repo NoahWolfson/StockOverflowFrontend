@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { ReactHTMLElement, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import './UserEditProfile.css'
+// import './UserEditProfile.css'
 import UserAPIService from "../UserAPIService";
 import { AuthType } from "../../Interfaces/AuthType";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
@@ -44,9 +44,14 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
             console.log(RecieveStockMsg)
             const response = await UserAPIService.postUserEditProfilePage(username, email, currBirthdate, profDesc, RecieveMsgPublicForum, ReceiveMsgLiked, RecieveStockMsg, userId, selectedPicture);
             console.log(response);
+            navigator(`/user/${userId}/profile`)
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const cancelButton =  () => {
+        navigator(`/user/${userId}/profile`);
     }
 
     useEffect(()=> {
@@ -98,7 +103,7 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
     }
 
     return (
-        <div className="body">
+        <div className="EditProfileBody">
             <h3>Edit User Profile</h3>
             <form className="theForm" onSubmit={submitUserEditPage}>
                 <div className="data">
@@ -138,6 +143,7 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
                 </div>
                 <div className="submit-container">
                     <button className='btn' type="submit">Submit</button>
+                    <button className="btn cancel" onClick={cancelButton}>Cancel</button>
                 </div>
             </form>
         </div>

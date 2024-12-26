@@ -18,8 +18,8 @@ const TrendingPageComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
         const getTrendingStocks = async() => {
             try {
                 const response = await TrendingPageAPIService.getTrendingPage();
-                console.log(response.data.Stock.Stock)
-                setTrendingStocks(response.data.Stock.Stock)
+                console.log(response.data.Stock)
+                setTrendingStocks(response.data.Stock)
             } catch (error) {
                 console.log(error)
             }

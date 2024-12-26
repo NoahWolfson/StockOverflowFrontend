@@ -1,3 +1,4 @@
+/*mostly rendered by ChatGPT */
 /* Base body styles */
 .StockSearcherBody {
     display: flex;
@@ -6,6 +7,7 @@
     flex-direction: column;
     height: 100vh;
     background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
 }
 
 /* Search container */
@@ -14,8 +16,8 @@
     width: 50%;
     max-width: 600px;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
 
@@ -23,78 +25,105 @@
 .SearchForm {
     width: 100%;
     position: relative;
+    display: flex;
 }
 
 /* Search bar */
 .SearchBar {
-    width: 100%;
-    padding: 10px 15px;
+    flex: 1;
+    padding: 12px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-right: none;
+    border-radius: 16px 0 0 16px;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .SearchBar:focus {
     border-color: #007bff;
     outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
 }
 
 /* Search button */
 .SearchButton {
-    margin-top: 10px;
-    width: 100%;
     padding: 10px 15px;
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #007bff;
     color: #fff;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid #007bff;
+    border-radius: 0 16px 16px 0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .SearchButton:hover {
     background-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.searchIcon {
+    width: 24px;
+    height: 24px;
 }
 
 /* Recommendations dropdown */
 .RecommendationsDropdown {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 10px);
     left: 0;
     width: 100%;
     max-height: 300px;
     overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
 
 /* Recommendation item */
 .RecommendationItem {
-    padding: 10px;
+    padding: 12px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
     transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.RecommendationItem:last-child {
+    border-bottom: none;
 }
 
 .RecommendationItem:hover {
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
 }
 
 /* Recommendation text */
 .RecommendationSymbol {
     font-weight: bold;
     color: #333;
+    margin-right: 10px;
 }
 
 .RecommendationName {
     color: #555;
     font-size: 14px;
+    text-align: right;
+}
+
+/* Additional adjustments */
+.searchLogoContainer {
+    margin-bottom: 20px;
+}
+
+.SearcherLogo {
+    max-width: 550px;
+    height: auto;
 }

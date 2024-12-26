@@ -1,22 +1,24 @@
 /* Base styles */
 .StockResultsBody {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #121212;
+    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    margin-top: 20%;
+    padding: 0 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin-top: 15%;
 }
 /* Updated styles for the SeacherContainer */
 .SeacherContainer {
+    width: 80%;
+    margin-top: 30px;
     display: flex;
-    align-items: center; /* Vertically align items */
-    justify-content: center; /* Center items horizontally */
-    gap: 20px; /* Add spacing between items */
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto; /* Center the container */
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
 }
 
 /* Updated logo container inside SeacherContainer */
@@ -31,21 +33,24 @@
 
 /* Search container aligned with logo */
 .SearchContainerResult {
-    flex: 1; /* Allow the search container to take the remaining space */
+    width: 10000px;
     display: flex;
-    align-items: center; /* Vertically align search bar and button */
-    justify-content: space-between; /* Space between the search bar and button */
+    gap: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Search bar */
 .SearchBarResult {
-    flex: 1; /* Allow the search bar to grow and take available space */
-    padding: 10px 15px;
+    flex: 1;
+    padding: 12px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-right: none;
+    border-radius: 16px 0 0 16px;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 80%;
 }
 
 .SearchBarResult:focus {
@@ -55,15 +60,15 @@
 
 /* Search button */
 .SearchButtonResults {
-    margin-left: 10px;
     padding: 10px 20px;
     font-size: 16px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 0 16px 16px 0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 120px; /* Fixed width for consistency */
 }
 
 .SearchButtonResults:hover {
@@ -82,6 +87,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 /* Search bar container */
@@ -91,7 +97,11 @@
     justify-content: space-between;
     align-items: center;
 }
+.SearchBarContainerResult {
+    width: 100%;
+    display: flex;
 
+}
 .SearchBarResult {
     flex: 1;
     padding: 10px 15px;
@@ -165,8 +175,8 @@
 
 /* Results container */
 .resultsContainer {
-    width: 100%;
-    max-width: 800px;
+    width: 80%;
+
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -175,7 +185,6 @@
 
 .result {
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -191,6 +200,7 @@
 
 .stockName {
     font-size: 18px;
+    color: #0056b3;
     font-weight: bold;
     margin-bottom: 10px;
 }

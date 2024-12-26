@@ -20,10 +20,11 @@ const StockSearcherComponent: React.FC<isAuthenticated> = ({setIsAuthenticated})
     const navigator = useNavigate();
 
     async function SuggestionChecker(e: ChangeEvent<HTMLInputElement>): Promise<void> {
-        const inputValue = e.target.value;// Use the latest value directly
+        const inputValue = e.target.value;
         console.log(inputValue)
         if (inputValue === "") {
-            setSearchTicker("")
+            setSearchTicker("");
+            setSearchRecommendations([]);
             return;
         }
         setSearchTicker(inputValue);
@@ -68,7 +69,7 @@ const StockSearcherComponent: React.FC<isAuthenticated> = ({setIsAuthenticated})
                             className="SearchBar"
                         />
                         <button type="submit" className="SearchButton">
-                            Search
+                            <img className='searchIcon' src="/SearchIcons/searchIcon.png" alt=""></img>
                         </button>
                     </div>
                 </form>

@@ -74,10 +74,10 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
                 {alertMsg !== "" ? <p className="alertMsg">{alertMsg}</p>: <p></p>}
           </div>
           <h1 className="StockName">{`${message.Stock.Summary.Data.QuoteOutput.Name} (${message.Stock.Summary.Data.QuoteOutput.Symbol})`}</h1>
-          <button className="add-stock" onClick={ProcessUserStock}>Add Stock</button>
           <div className="StockTickerComponent container">
             <StockTickerComponent ticker={stockTicker}/>    
           </div>
+          <button className="add-stock btn" onClick={ProcessUserStock}>Add Stock</button>
           <div className="StockChartComponent container">
             <StockChartComponent ticker={stockTicker}/>
           </div>

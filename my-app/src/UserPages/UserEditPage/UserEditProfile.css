@@ -1,5 +1,5 @@
 /* General Body Styling */
-.body {
+.EditProfileBody {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,9 @@
     background-color: #f5f7fa;
     padding: 20px;
 }
-
+.cancel {
+    background-color: red;
+}
 /* Form Container */
 .theForm {
     width: 100%;
