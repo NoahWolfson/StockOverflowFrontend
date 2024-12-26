@@ -12,6 +12,7 @@ export type MessageData = {
     Dislikes: number;
     Text: string;
     Username: string;
+    IsQuestion: boolean;
 }
 export type ResponseData = {
     Response: MessageData;
@@ -23,23 +24,25 @@ const config: AxiosRequestConfig = {
     withCredentials: true,
 };
 export default class QuestionPageService {
-    static async getMessage(MessageId: string,setAuth: (auth: AuthType)=>void): Promise<any> {
+    static async getQuestion(MessageId: string, setAuth: (auth: AuthType)=>void): Promise<any> {
         try {
             const response = await axios.get(`http://localhost:8000/public-forum/messages/` + MessageId, config).catch(error => {
                 console.error(error);
                 return error.resp;
             });
             setAuth({accountId: response.data.currUser, picStr: response.data.profilePicture})
+
             return {
-                Dislikes: response.data.message.Dislikes as number,
-                Likes: response.data.message.Likes as number,
-                RepliedTo: response.data.message.RepliedTo as string,
-                Replies: response.data.message.Replies as Array<string>,
-                Text: response.data.message.Text as string,
-                Username: response.data.Username as string,
-                Account: response.data.message.Account as string,
-                _id: response.data.message._id as string,
-                Date_Created: response.data.message.Date_Created as string,
+                Dislikes: response.data.message.Dislikes,
+                Likes: response.data.message.Likes,
+                Replies: response.data.message.Replies,
+                Text: response.data.message.Text,
+                Username: response.data.Username,
+                Account: response.data.message.Account,
+                _id: response.data.message._id,
+                IsQuestion: response.data.message.IsQuestion,
+                RepliedTo: (response.data.message.IsQuestion as boolean)? (''):(response.data.message.RepliedTo),
+                Date_Created: response.data.message.Date_Created,
             } as MessageData;
         }
         catch (error) {
@@ -68,6 +71,7 @@ export default class QuestionPageService {
                         Account: item.Response.Account,
                         _id: item.Response._id,
                         Date_Created: item.Response.Date_Created,
+                        IsQuestion: item.Response.IsQuestion,
                     }
                     for (let comment of item.Comments) {
                         comments.push({
@@ -79,7 +83,8 @@ export default class QuestionPageService {
                             RepliedTo: comment.Message.RepliedTo,
                             Replies: comment.Message.Replies,
                             Text: comment.Message.Text,
-                            _id: comment.Message._id
+                            _id: comment.Message._id,
+                            IsQuestion: comment.Message.IsQuestion,
                         })
                     }
                     Responses.push({Response: response, Comments: comments});

@@ -22,7 +22,8 @@ const ResponseComponent: React.FC<ResponseComponentProps> = (props) => {
                     Dislikes: props.responseData.Response.Dislikes,
                     Username: props.responseData.Response.Username,
                     Date_Created: props.responseData.Response.Date_Created,
-                    Text: props.responseData.Response.Text
+                    Text: props.responseData.Response.Text,
+                    IsQuestion: props.responseData.Response.IsQuestion,
                 }} setIsAuthorized={props.setAuth}  />
             </div>
             <button className="showCommentsButton" onClick={()=>{

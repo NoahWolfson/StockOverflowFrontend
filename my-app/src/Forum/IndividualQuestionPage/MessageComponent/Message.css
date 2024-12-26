@@ -1,4 +1,5 @@
-.ReplyButton {
+
+.MessageButtons > button{
     margin-left: 1vw;
     margin-right: 1vw;
     background-color: darkred;
@@ -10,55 +11,16 @@
     height: 90%;
     width: 15%;
 }
-.ClearLikeButton{
-    margin-left: 1vw;
-    margin-right: 1vw;
-    border: none;
-    background-color: greenyellow;
-    color: slateblue;
-    font-size: 1vw;
-    text-align: center;
-    text-decoration: none;
-    height: 90%;
-    width: 15%;
-
-}
-.LikeButton{
-    margin-left: 1vw;
-    margin-right: 1vw;
-    background-color: lightblue;
-    border: none;
-    color: darkblue;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1vw;
-    height: 90%;
-    width: 15%;
-}
-.DislikeButton{
-    margin-left: 1vw;
-    margin-right: 1vw;
-    background-color: darkblue;
-    border: none;
-    color: lightblue;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1vw;
-    height: 90%;
-    width: 15%;
-}
 .MessageButtons{
     display: inline;
 }
 .MessageComponent {
     text-align: center;
-    border: dodgerblue solid 2px;
     color: black;
     justify-self: center;
     width: 75vw;
     height: 25vh;
     display: grid;
-
 }
 .MessageHeader{
     color: darkslategray;

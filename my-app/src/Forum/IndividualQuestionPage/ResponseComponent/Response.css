@@ -2,6 +2,20 @@
     position: relative;
     left: 10vw;
 }
-.CommentContainer{
-    background-color: lightgoldenrodyellow;
+.CommentContainer > .MessageComponent{
+    background-color: seashell;
+    border: lightsalmon solid 2px;
+}
+.CommentContainer > .MessageComponent > .MessageText{
+    color: orangered;
+}
+.ResponseContainer > .MessageComponent{
+    background-color: lightyellow;
+    border: saddlebrown solid 2px;
+}
+.ResponseContainer > .MessageComponent > .MessageText{
+    color: indianred;
+}
+.ResponseComponent{
+    margin-top: 2%;
 }
