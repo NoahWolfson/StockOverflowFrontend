@@ -105,6 +105,38 @@ export default class UserAPIService {
             throw error; 
         }
     }
+    static async getUserMessages(accountId?: string): Promise<any> {
+        try {
+            const response = await axios.get(`${BASE_URL}/user/${accountId}/messages`, {
+                withCredentials: true,
+            });
+            if(response) {
+                return response.data;
+            }
+            else{
+                throw new Error("Axios Request to: " + `${BASE_URL}/user/${accountId}/messages`);
+            }
+        } catch (error) {
+            console.error(`Error fetching messages for ${accountId}:`, error);
+            throw new Error("Failed to fetch messages");
+        }
+    }
+    static async getUserMessageSearch(accountId: string,text: string): Promise<any> {
+        try {
+            const response = await axios.get(`${BASE_URL}/user/${accountId}/messageSearch/` + text, {
+                withCredentials: true,
+            });
+            if(response) {
+                return response.data;
+            }
+            else{
+                throw new Error("Axios Request to: " + `${BASE_URL}/user/${accountId}/messages`);
+            }
+        } catch (error) {
+            console.error(`Error fetching messages for ${accountId}:`, error);
+            throw new Error("Failed to fetch messages");
+        }
+    }
     
 }
 async function errorHandler(error: unknown): Promise<any>{

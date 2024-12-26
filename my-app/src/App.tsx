@@ -12,6 +12,7 @@ import StockRouter from './Stocks/StocksRouter';
 import { AuthProvider } from './useAuth';
 import HomeComponent from './GeneralRoutes/Home/HomeComponent';
 import UserRouter from './UserPages/UserRouter';
+import QuestionsRouter from "./Forum/QuestionsRouter";
 import NotFoundComponent from './GeneralRoutes/404NotFound/404NotFound';
 import LoadingComponent from './GeneralRoutes/LoadingPage/LoadingComponent';
 
@@ -27,7 +28,7 @@ function App() {
           <Route path='about'></Route>
           {/* Use StockRouter for dynamic stock routes */}
           <Route path='stocks/*' element={<StockRouter />} />
-           <Route path='forum/*' element={<QuestionPage/>}></Route>
+           <Route path='public-forum/*' element={<QuestionsRouter/>}></Route>
           <Route path='auth/*' element={<AuthenticationComponent />} />
           <Route path='user/*' element={<UserRouter/>} />
         </Route>
