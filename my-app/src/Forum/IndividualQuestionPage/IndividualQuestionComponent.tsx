@@ -12,6 +12,7 @@ type QuestionPageParams = {
 }
 type isAuthenticated = {
     setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
+  
 }
 /**This component represents the Individual Question Page in its entirety.
  * It uses the QuestionPageService functions to update its state from the backend, ultimately from the database.

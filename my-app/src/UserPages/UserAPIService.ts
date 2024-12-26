@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 
 const BASE_URL = "http://localhost:8000";
@@ -22,9 +22,8 @@ export default class UserAPIService {
             });
             console.log(response)
             return response;
-        } catch (error) {
-            console.error(`Error fetching account data for ${accountId}:`, error);
-            throw new Error("Failed to fetch account data");
+        } catch (error: unknown) {
+            return await errorHandler(error);
         }
     }
     /**
@@ -39,10 +38,9 @@ export default class UserAPIService {
             });
             console.log(response)
             return response;
-        } catch (error) {
-            console.log(error)
-            console.error(`Error fetching account data for ${accountId}:`, error);
-            throw new Error("Failed to fetch account data");
+        } catch (error: unknown) {
+            return await errorHandler(error);
+            
         }
     }
     
@@ -139,4 +137,16 @@ export default class UserAPIService {
             throw new Error("Failed to fetch messages");
         }
     }
+    
+}
+async function errorHandler(error: unknown): Promise<any>{
+    if (axios.isAxiosError(error)) {
+        return {
+            msg: "Error Fetching User Data",
+            status: error.response?.status || 500,
+            error: error.response?.data || "Internal Server Error",
+        };
+    }
+    console.error("Unexpected error:", error);
+    return { msg: "An unexpected error occurred", status: 500 };
 }

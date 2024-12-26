@@ -1,3 +1,4 @@
+import { AuthType } from "../../../Interfaces/AuthType";
 import MessageComponent from "../MessageComponent/MessageComponent";
 import {MessageData, ResponseData} from "../QuestionPageService";
 import React, {Dispatch, useState} from "react";
@@ -37,6 +38,7 @@ const ResponseComponent: React.FC<ResponseComponentProps> = (props) => {
                         <li className="CommentContainer">
                             <MessageComponent setReplyMessage={props.setReplyMessage} msg={comment!}
                                               setIsAuthorized={props.setAuth} />
+
                         </li>
                     ))
                 }

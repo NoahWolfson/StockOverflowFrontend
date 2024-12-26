@@ -13,12 +13,16 @@ import { AuthProvider } from './useAuth';
 import HomeComponent from './GeneralRoutes/Home/HomeComponent';
 import UserRouter from './UserPages/UserRouter';
 import QuestionsRouter from "./Forum/QuestionsRouter";
+import NotFoundComponent from './GeneralRoutes/404NotFound/404NotFound';
+import LoadingComponent from './GeneralRoutes/LoadingPage/LoadingComponent';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
       <Routes>
+        <Route path='/404' element={<NotFoundComponent/>}/>
+        <Route path='/loading' element={<LoadingComponent/>} />
         <Route path='/' element={<Layout />}>
           <Route index element={<HomeComponent/>} /> {/* Default path */}
           <Route path='about'></Route>
