@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import IndividualStockViewerAPIService from "../IndividualStockViewerAPIService";
-import IndividualStockComponent from "../IndividualStockComponent";
-import { Console } from "console";
 import './StockTickerComponent.css'
-interface StockTickerProps {
-    ticker?: string;
-}
+import { StockPageParams } from "../../../Interfaces/StockTickerParam";
 
-const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
+/**
+ * this component represents the stock ticker which is the stocks current price, its percentage change since the market open and the price change since the market open.
+ * this component will update based on the time given by teh backend configureation policy (as specified in the design document)
+ * @param stockTicker- the stock symbol in the url  
+ * @returns 
+ */
+const StockTickerComponent: React.FC<StockPageParams> = ({stockTicker}) => {
     const [Error, setError] = useState<any|null>(null);
     const [PrevPrice, setPrevPrice] = useState<Number| 0>(0);
     const [Price, setPrice] = useState<Number| 0>(0);
@@ -20,8 +21,8 @@ const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
         //this function is responsible for updating the stock ticker itself in a certain number of seconds decared by teh setInterval function
         const fetchStockTickerData = async () => {
             try {
-                console.log(ticker)
-                const fetchStockTickerData = await IndividualStockViewerAPIService.getBasicStockData(ticker || 'Err');
+                console.log(stockTicker)
+                const fetchStockTickerData = await IndividualStockViewerAPIService.getBasicStockData(stockTicker || 'Err');
                 console.log(fetchStockTickerData);
                 console.log('again')
                 setPrevPrice(Price)
@@ -50,7 +51,7 @@ const StockTickerComponent: React.FC<StockTickerProps> = ({ticker}) => {
                 setChangeNumClassName("");
             }, 500)
         }
-    }, [PrevPrice, Price, ticker])
+    }, [PrevPrice, Price, stockTicker])
     return (
         <div className="stockTicker">
             <div className="change_percentage_container">

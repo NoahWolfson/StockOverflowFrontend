@@ -1,16 +1,11 @@
 import React, { ReactHTMLElement, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-// import './UserEditProfile.css'
+import './UserEditProfile.css'
 import UserAPIService from "../UserAPIService";
-import { AuthType } from "../../Interfaces/AuthType";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
+import { AccountParam } from "../../Interfaces/AccountParam";
 
-type isAuthenticated = {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-} 
-type AccountParam = {
-    userId?: string
-}
 /**
  * this page is responsible for allowing the current user to edit hie account.
  * @param param0 
@@ -18,7 +13,7 @@ type AccountParam = {
  */
 const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
     const [userData, setUserData] = useState<any | null>(null);
-    const {userId} = useParams<AccountParam>();
+    const {accountId} = useParams<AccountParam>();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
@@ -42,22 +37,22 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
             console.log(selectedPicture)
             console.log('one of the fields')
             console.log(RecieveStockMsg)
-            const response = await UserAPIService.postUserEditProfilePage(username, email, currBirthdate, profDesc, RecieveMsgPublicForum, ReceiveMsgLiked, RecieveStockMsg, userId, selectedPicture);
+            const response = await UserAPIService.postUserEditProfilePage(username, email, currBirthdate, profDesc, RecieveMsgPublicForum, ReceiveMsgLiked, RecieveStockMsg, accountId, selectedPicture);
             console.log(response);
-            navigator(`/user/${userId}/profile`)
+            navigator(`/user/${accountId}/profile`)
         } catch (error) {
             console.log(error)
         }
     }
 
     const cancelButton =  () => {
-        navigator(`/user/${userId}/profile`);
+        navigator(`/user/${accountId}/profile`);
     }
 
     useEffect(()=> {
         const getUserProfliePage = async () => {
             try {
-                const response = await UserAPIService.getUserEditProfilePage(userId);
+                const response = await UserAPIService.getUserEditProfilePage(accountId);
                  //will go to 404 route if there was a 404 error
                  if (response?.status === 404) {
                     navigator('/404')
@@ -87,7 +82,7 @@ const UserEditProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) =>
         if (!gotUserInfo) {
             getUserProfliePage()
         }
-    }, [userId, setIsAuthenticated, setGotUserInfo, gotUserInfo, navigator])
+    }, [accountId, setIsAuthenticated, setGotUserInfo, gotUserInfo, navigator])
     if (!userData) {
         return <LoadingComponent/>
     }

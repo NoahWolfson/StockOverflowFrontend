@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import GenrelRoutesAPIService from "../GenrelRoutesAPIService";
 import { useAuth } from "../../useAuth";
 import './HomeComponent.css'
+/**
+ * the home component is responsible for displaying the different types of features for the StockOverflow application to infomr the user what are wesbite does 
+ * @returns 
+ */
 const HomeComponent: React.FC = () => {
     const { setIsAuthenticated } = useAuth(); 
+    const [dbStatus, setdbStatus] = useState("");
     useEffect(() => {
         const fetchHomeData = async () => {
             try {
-                console.log('before')
                 const response = await GenrelRoutesAPIService.getHomeData();
-                console.log(response)
-                console.log(response)
                 let currUser: string = response.data.currUser;
                 let currPic: string = response.data.profilePicture;
+                setdbStatus(response.data.dbStatus);
                 setIsAuthenticated({'accountId': currUser, picStr: currPic})
             } catch (error) {
                 console.log("Failed to fetch home data:", error);
@@ -21,10 +24,12 @@ const HomeComponent: React.FC = () => {
         };
 
         fetchHomeData();
-    }, [setIsAuthenticated]);
+    }, [setIsAuthenticated, setdbStatus]);
     return (
-        
             <div className="HomeBody">
+                <div className="dbStatut">
+                    <p className="theStatus">Database Status: {JSON.stringify(dbStatus)}</p>
+                </div>
                 <div className="welcomeContainer">
                     <h1 className="welcomeTitle">Welcome to StockOverflow</h1>
                     <p className="welcomeDescription">At StockOverflow uses the forum and social media like structure of StackOverflow and applies it to primarily talk about stocks. Users will have the ability to discuss any problems or opinions on any stocks or market trends that they want to discuss. Like reddit, any topics regarding stocks that have more likes will be prioritized over any with fewer likes. In addition, if a user wants to learn more about a particular stock, they have the ability to search that stock up on our website and learn about the company's demographics, finances and any current breaking news. </p>
@@ -138,8 +143,6 @@ const HomeComponent: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-        
     )
 }
 export default HomeComponent;

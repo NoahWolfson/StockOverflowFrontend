@@ -7,10 +7,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carous
 import './TrendingPageComponent.css'
 import { Link } from "react-router-dom";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
 
-type isAuthenticated = {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-  }
+
 const TrendingPageComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
     const [trendingStocks, setTrendingStocks] = useState<any[] | []>([]);
 

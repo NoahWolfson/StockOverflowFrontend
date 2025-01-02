@@ -4,17 +4,9 @@ import { AuthType } from "../../../Interfaces/AuthType";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import './StockResultsComponent.css'
 import LoadingComponent from "../../../GeneralRoutes/LoadingPage/LoadingComponent";
+import { isAuthenticated } from "../../../Interfaces/IsAuthenticated";
+import { StockRecommendation } from "../../../Interfaces/StockRecommendation";
 
-type isAuthenticated = {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-  }
-type StockRecommendation = {
-    name: string,
-    region: string,
-    securityType: string,
-    shortBio: string,
-    symbol: string
-}
 type StockPageParams = {
     stockTicker?: string
 }

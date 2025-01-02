@@ -5,12 +5,11 @@ import ResponseComponent from "./ResponseComponent/ResponseComponent";
 import {useParams} from "react-router-dom";
 import ReplyBoxComponent from "./ReplyBoxComponent/ReplyBoxComponent";
 import { AuthType } from "../../Interfaces/AuthType";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
 type QuestionPageParams = {
     QuestionId?: string;
 }
-type isAuthenticated = {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-}
+
 /**This component represents the Individual Question Page in its entirety.
  * It uses the QuestionPageService functions to update its state from the backend, ultimately from the database.
  *

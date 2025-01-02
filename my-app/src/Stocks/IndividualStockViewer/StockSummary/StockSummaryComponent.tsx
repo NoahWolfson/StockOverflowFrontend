@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./StockSummary.css"
+import { StockData } from "../../../Interfaces/StockData";
 
-interface StockData {
-    data?: any;
-}
+/**
+ * this component is responsible for showing the relevant stock for a particular stock. 
+ * @param data - the stock data for the stock
+ * @returns 
+ */
 const StockSummaryComponent: React.FC<StockData> = ({data}) => {
     
     if (!data) {

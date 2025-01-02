@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './navigation.css';
 import AtuhAPIService from "../Authentication/AuthBackendRoutes";
 import { AuthType } from "../Interfaces/AuthType";
@@ -10,6 +10,7 @@ interface Authenticated {
 
 export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
     const [isShrunk, setIsShrunk] = useState(false);
+    const navigator = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,6 +25,7 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
         try {
             console.log('logout user')
             await AtuhAPIService.LogoutUser();
+            navigator('/')
         } catch (error) {
             console.log('error logging out person')
         }

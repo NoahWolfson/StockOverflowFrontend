@@ -11,15 +11,18 @@ import {
   Legend,
 } from "chart.js";
 import IndividualStockViewerAPIService from "../IndividualStockViewerAPIService";
+import { StockPageParams } from "../../../Interfaces/StockTickerParam";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-interface StockData {
-  ticker?: string;
-}
 
-const StockChartComponent: React.FC<StockData> = ({ ticker }) => {
+/**
+ * this component will shouw the changes of the  stock price throughout a current market day represented as a chart. teh x values will be the time of day while teh y values is the stock price.
+ * @param stockTicker- the stock symbol in the url  
+ * @returns 
+ */
+const StockChartComponent: React.FC<StockPageParams> = ({ stockTicker }) => {
   const [Error, setError] = useState<string>("");
   const [chartData, setChartData] = useState<any>({
     labels: [],
@@ -41,7 +44,7 @@ const StockChartComponent: React.FC<StockData> = ({ ticker }) => {
       try {
         // Fetch stock chart data
 
-        const response = await IndividualStockViewerAPIService.getIndStockChartData(ticker || "Err");
+        const response = await IndividualStockViewerAPIService.getIndStockChartData(stockTicker || "Err");
         console.log(response)
         // Process the response to extract labels and values
         const labels = Object.keys(response['Stock']['chart']);
@@ -98,7 +101,7 @@ const StockChartComponent: React.FC<StockData> = ({ ticker }) => {
     };
 
     fetchChartData();
-  }, [ticker]);
+  }, [stockTicker]);
 
   return (
     <div style={{ width: "70%", margin: "0 auto" }}>
