@@ -93,7 +93,7 @@ const HomeComponent: React.FC = () => {
                         </div>
                         <div className="subFeatureContainer">
                             <div className="subFeatureSide pictureSide">
-                                <img src="" alt="FeaturePic" className="featurePic"></img>
+                                <img src="/HomeImages/likeDislike.jpg" alt="FeaturePic" className="featurePic"></img>
                             </div>
                             <div className="subFeatureSide descriptionSide">
                                 <h4 className="subFeatureTitle">Like/ Dislike Questions and Respones</h4>
@@ -107,7 +107,7 @@ const HomeComponent: React.FC = () => {
                     </div>
                     <div className="subFeatureContainer">
                         <div className="subFeatureSide pictureSide">
-                            <img src="" alt="FeaturePic" className="featurePic"></img>
+                            <img src="/HomeImages/edit_profile.png" alt="FeaturePic" className="featurePic"></img>
                         </div>
                         <div className="subFeatureSide descriptionSide">
                             <h4 className="subFeatureTitle">Customize Your Account</h4>
@@ -120,12 +120,12 @@ const HomeComponent: React.FC = () => {
                             <h6 className="subFeatureDescription">Continue to suctomize your account by adding stocks to your profile page. Go to the Individual Stock Page and add stocks to your account now! Account needed to add stocks.</h6>
                         </div>
                         <div className="subFeatureSide pictureSide">
-                            <img src="" alt="FeaturePic" className="featurePic"></img>
+                            <img src="/HomeImages/following3.webp" alt="FeaturePic" className="featurePic"></img>
                         </div>
                     </div>
                     <div className="subFeatureContainer">
                         <div className="subFeatureSide pictureSide">
-                            <img src="" alt="FeaturePic" className="featurePic"></img>
+                            <img src="/HomeImages/responses.png" alt="FeaturePic" className="featurePic"></img>
                         </div>
                         <div className="subFeatureSide descriptionSide">
                             <h4 className="subFeatureTitle">View Individual Account Public Forum Messages</h4>
