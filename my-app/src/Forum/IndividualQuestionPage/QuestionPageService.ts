@@ -1,24 +1,7 @@
 import axios, {AxiosRequestConfig} from "axios"
-import {Simulate} from "react-dom/test-utils";
 import {AuthType} from "../../Interfaces/AuthType";
+import {MessageData, ResponseData} from "../MessageTypes";
 
-export type MessageData = {
-    _id: string;
-    Account: string;
-    Replies: Array<string>;
-    Date_Created: string;
-    RepliedTo: string;
-    Likes: number;
-    Dislikes: number;
-    Text: string;
-    Username: string;
-    IsQuestion: boolean;
-}
-export type ResponseData = {
-    Response: MessageData;
-    Comments: Array<MessageData>;
-
-}
 const config: AxiosRequestConfig = {
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
@@ -106,8 +89,10 @@ export default class QuestionPageService {
                 accountId: response.data.currUser,
                 picStr: response.data.profilePicture
             });
+            return true;
         }catch(error){
             console.error(error);
+            return false;
         }
     }
     static async likeMessage(MessageId: string,setAuth: (auth: AuthType)=>void): Promise<any> {
@@ -118,8 +103,10 @@ export default class QuestionPageService {
                 headers: { 'Content-Type': 'application/json' },
             });
             setAuth({accountId: response.data.currUser,picStr: response.data.profilePicture});
+            return true;
         }catch(error){
             console.error(error);
+            return false;
         }
     }
     static async dislikeMessage(MessageId: string,setAuth: (auth: AuthType)=>void): Promise<any> {
@@ -130,8 +117,10 @@ export default class QuestionPageService {
                     headers: { 'Content-Type': 'application/json' },
                 });
                 setAuth({accountId: response.data.currUser,picStr: response.data.profilePicture});
+                return true;
             }catch(error){
                 console.error(error);
+                return false;
             }
     }
     static async clearLikeMessage(MessageId: string,setAuth: (auth: AuthType)=>void): Promise<any> {
@@ -142,8 +131,10 @@ export default class QuestionPageService {
                 headers: { 'Content-Type': 'application/json' },
             });
             setAuth({accountId: response.data.currUser,picStr: response.data.profilePicture});
+            return true;
         }catch(error){
             console.error(error);
+            return false;
         }
     }
 }

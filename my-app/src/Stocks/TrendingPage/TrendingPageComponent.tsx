@@ -18,18 +18,18 @@ const TrendingPageComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) 
         const getTrendingStocks = async() => {
             try {
                 const response = await TrendingPageAPIService.getTrendingPage();
-                console.log(response.data.Stock.Stock)
-                setTrendingStocks(response.data.Stock.Stock)
+                setTrendingStocks(response.data.Stock);
             } catch (error) {
                 console.log(error)
             }
         }
         getTrendingStocks()
-    }, [])
+    }, []);
     if (!trendingStocks) {
         return <LoadingComponent/>
     }
     return (
+
         <div className="TrendingPageBody">
             <div className="titleDescription">
                 <h1 className="title">Trending Stock Page</h1>

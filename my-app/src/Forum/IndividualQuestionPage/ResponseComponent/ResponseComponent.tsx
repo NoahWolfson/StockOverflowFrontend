@@ -1,9 +1,8 @@
-import { AuthType } from "../../../Interfaces/AuthType";
 import MessageComponent from "../MessageComponent/MessageComponent";
-import {MessageData, ResponseData} from "../QuestionPageService";
 import React, {Dispatch, useState} from "react";
 import {AuthType} from "../../../Interfaces/AuthType";
 import './Response.css'
+import {MessageData, ResponseData} from "../../MessageTypes";
 type ResponseComponentProps = {
     responseData: ResponseData;
     setReplyMessage: (msg: MessageData) => void;
@@ -25,24 +24,24 @@ const ResponseComponent: React.FC<ResponseComponentProps> = (props) => {
                     Date_Created: props.responseData.Response.Date_Created,
                     Text: props.responseData.Response.Text,
                     IsQuestion: props.responseData.Response.IsQuestion,
-                }} setIsAuthorized={props.setAuth}  />
+                }} setAuth={props.setAuth}  />
             </div>
             <button className="showCommentsButton" onClick={()=>{
                 setShowComments(!showComments);
             }}>
-            Show Comments
+            Toggle Comments
             </button>
-            {showComments && (<ol className="Comments">
+            {showComments && (<ul className="Comments">
                 {
                     props.responseData.Comments.map((comment: MessageData,index) => (
                         <li className="CommentContainer">
                             <MessageComponent setReplyMessage={props.setReplyMessage} msg={comment!}
-                                              setIsAuthorized={props.setAuth} />
+                                              setAuth={props.setAuth} />
 
                         </li>
                     ))
                 }
-            </ol>)}
+            </ul>)}
 
         </div>);
 }

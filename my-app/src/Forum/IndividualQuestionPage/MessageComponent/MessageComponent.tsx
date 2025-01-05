@@ -1,25 +1,36 @@
 import React, {useEffect} from "react";
-import QuestionPageService, {MessageData} from "../QuestionPageService";
+import QuestionPageService from "../QuestionPageService";
 import './Message.css'
 import {AuthType} from "../../../Interfaces/AuthType";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {MessageData} from "../../MessageTypes";
 type MessageComponentProps = {
     msg: MessageData,
     setReplyMessage: (msg: MessageData) => void,
-    setIsAuthorized: (auth: AuthType) => void,
+    setAuth: (auth: AuthType) => void,
 }
 const MessageComponent: React.FC<MessageComponentProps> = (props) => {
+    const navigate = useNavigate();
     const handleReply= () =>{
         props.setReplyMessage(props.msg);
     }
     const handleLike = async() =>{
-        await QuestionPageService.likeMessage(props.msg._id,props.setIsAuthorized);
+        const success = await QuestionPageService.likeMessage(props.msg._id,props.setAuth);
+        if(!success){
+            navigate("/auth/login");
+        }
     }
     const handleDislike = async () =>{
-        await QuestionPageService.dislikeMessage(props.msg._id, props.setIsAuthorized);
+       const success=  await QuestionPageService.dislikeMessage(props.msg._id, props.setAuth);
+       if(!success){
+            navigate("/auth/login");
+       }
     }
     const handleClear = async() =>{
-        await QuestionPageService.clearLikeMessage(props.msg._id, props.setIsAuthorized);
+        const success = await QuestionPageService.clearLikeMessage(props.msg._id, props.setAuth);
+        if(!success){
+            navigate("/auth/login");
+        }
     }
     return (<div className = "MessageComponent">
         <h5 className="MessageHeader"><Link to={"/user/" + props.msg.Account + "/profile"}>{props.msg.Username}</Link> at {new Date(props.msg.Date_Created).toLocaleString()}</h5>

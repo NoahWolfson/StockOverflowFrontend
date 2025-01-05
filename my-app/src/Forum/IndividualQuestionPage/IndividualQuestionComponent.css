@@ -1,5 +1,7 @@
-body{
-    display: grid;
+.QuestionPageBody{
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
 }
 .questionContainer > .MessageComponent{
     background-color: lightgoldenrodyellow;

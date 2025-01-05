@@ -121,9 +121,9 @@ export default class UserAPIService {
             throw new Error("Failed to fetch messages");
         }
     }
-    static async getUserMessageSearch(accountId: string,text: string): Promise<any> {
+    static async getUserMessageSearch(accountId: string,text: string, sort: string): Promise<any> {
         try {
-            const response = await axios.get(`${BASE_URL}/user/${accountId}/messageSearch/` + text, {
+            const response = await axios.get(`${BASE_URL}/user/${accountId}/messageSearch/` + text +`/${sort}`, {
                 withCredentials: true,
             });
             if(response) {

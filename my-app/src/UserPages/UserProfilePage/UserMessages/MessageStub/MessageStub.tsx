@@ -4,7 +4,7 @@ const messageStubComponent: React.FC<MessageStubData> = (props) =>{
     return(
         <div className="MessageStub">
             <h5 className="StubHeader">
-                {props.IsQuestion ? (<Link to={"/public-forum/" + props._id}>{"Question at " + (new Date(props.Date_Created)).toLocaleString()}</Link>):"Response at: " + props.Date_Created}
+                <Link to={"/public-forum/" + props._id}>{props.IsQuestion? ("Question at ") : ("Response at ") + (new Date(props.Date_Created)).toLocaleString()}</Link>
             </h5>
             <h5 className="StubLikes">
                 Likes: {props.Likes}, Dislikes: {props.Dislikes}

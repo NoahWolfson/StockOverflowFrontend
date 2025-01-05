@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import QuestionPageService,{ResponseData,MessageData} from "./QuestionPageService";
+import QuestionPageService from "./QuestionPageService";
 import MessageComponent from "./MessageComponent/MessageComponent";
 import ResponseComponent from "./ResponseComponent/ResponseComponent";
 import {useNavigate, useParams} from "react-router-dom";
@@ -7,12 +7,12 @@ import ReplyBoxComponent from "./ReplyBoxComponent/ReplyBoxComponent";
 import './IndividualQuestionComponent.css'
 import {AuthType} from "../../Interfaces/AuthType";
 import {useLocation} from "react-router-dom";
+import {MessageData, ResponseData} from "../MessageTypes";
 type QuestionPageParams = {
     QuestionId?: string;
 }
 type isAuthenticated = {
     setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
-  
 }
 /**This component represents the Individual Question Page in its entirety.
  * It uses the QuestionPageService functions to update its state from the backend, ultimately from the database.
@@ -26,15 +26,20 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setAuth})=>{
     const {QuestionId} = useParams<QuestionPageParams>();
     const [replyTo, setReplyTo] = React.useState<MessageData>();
     const navigate = useNavigate();
+    const [timeOuts,setTimeOuts] = React.useState<Array<NodeJS.Timeout>>([]);
     useEffect(()=>{
         const update = async function(){
             try {
                 let qData: MessageData = await QuestionPageService.getQuestion(QuestionId || "Err",setAuth);
+                if(qData == null){
+                    navigate("/public-forum");
+                }
                 if(qData.IsQuestion as boolean) {
                     setQuestion(prev => qData);
                     let response =  await QuestionPageService.getPage(QuestionId || "Err",setAuth);
                     setData(response?.Responses);
-                    setTimeout(update,300);
+                    const timeOutId = setTimeout(update,300);
+                    setTimeOuts([...timeOuts, timeOutId]);
                 }
                 else {
                     console.log(qData);
@@ -51,14 +56,19 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setAuth})=>{
             }
         }
         update();
+        return ()=>{
+            for(const id of timeOuts){
+                clearTimeout(id);
+            }
+        }
     },[location]);
     return (
-        <div className="body">
+        <div className="QuestionPageBody" >
             {question ? (
                 <div className="questionContainer">
-                    <MessageComponent setIsAuthorized={setAuth} msg={question!} setReplyMessage={setReplyTo}/>
+                    <MessageComponent setAuth={setAuth} msg={question!} setReplyMessage={setReplyTo}/>
                 </div>) : <p>Loading Question</p>}
-            {data ?(
+            {(data && question)?(
             <ol>
                 {data.map((response: ResponseData,index: number) => (
                     <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent setAuth={setAuth} responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>

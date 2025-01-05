@@ -45,7 +45,7 @@ export const Navigator: React.FC<Authenticated> = ({isAuthticated}) => {
                         <Link className="ind_navigator" to="/about">About</Link>
                     </div>
                     <div className="ind_navigator_container">
-                        <Link className="ind_navigator" to="/forum">Public Forum</Link>
+                        <Link className="ind_navigator" to="/public-forum">Public Forum</Link>
                     </div>
                     <div className="ind_navigator_container">
                         <Link className="ind_navigator" to="/stocks">Stocks</Link>

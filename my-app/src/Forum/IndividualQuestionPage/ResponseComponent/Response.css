@@ -16,6 +16,10 @@
 .ResponseContainer > .MessageComponent > .MessageText{
     color: indianred;
 }
+.showCommentsButton{
+    position: relative;
+    left: 40%;
+}
 .ResponseComponent{
     margin-top: 2%;
 }

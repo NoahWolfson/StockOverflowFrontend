@@ -28,6 +28,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
     const navigator = useNavigate();
     const [userData, setUserData] = useState<any | null>(null);
     const [messages,setMessages] = useState<messageStubData[] | null>(null);
+    const [sort, setSort] = useState<string>("Relevance");
     useEffect(() => {
         /**
          * this method is reponsible for getting the account information from teh backend 
@@ -65,7 +66,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
         e.preventDefault();
         if(userId){
         try{
-            let response = await UserAPIService.getUserMessageSearch(userId,search);
+            let response = await UserAPIService.getUserMessageSearch(userId,search,sort);
             setMessages(prevState => response.matches);
         }catch (err){
             console.error(err)}
@@ -101,6 +102,12 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                     <form onSubmit={searchMessages}>
                         <label>
                             <input type={"text"} value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <select className="SortSelect" onChange={(e) => setSort(e.target.value)}>
+                                <option value="Relevance">Sort by Text Similarity</option>
+                                <option value="Date_Created">Sort by Date</option>
+                                <option value="Likes">Sort by Likes</option>
+                                <option value="Dislikes">Sort by Dislikes</option>
+                            </select>
                         </label>
                         <button type={"submit"} className={"MessageSearchButton"}>See Results</button>
                     </form>

@@ -1,12 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import IndividualStockComponent from './Stocks/IndividualStockViewer/IndividualStockComponent';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import SignUp from './Authentication/SignUpRoutes/SignUp';
 import AuthenticationComponent from './Authentication/AuthenticationPage';
-import IndividualQuestionComponent from "./Forum/IndividualQuestionPage/IndividualQuestionComponent";
-import QuestionPage from "./Forum/QuestionPage";
 import Layout from './Layout';
 import StockRouter from './Stocks/StocksRouter';
 import { AuthProvider } from './useAuth';

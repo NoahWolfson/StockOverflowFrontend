@@ -8,3 +8,24 @@
     background-color: darkred;
     border: slategray 2px double;
 }
+.ReplyBoxButtons > button {
+    margin-left: 1vw;
+    background-color: indianred;
+    width: 8vw;
+    height: 4vh;
+    border: none;
+    color: white;
+}
+.ReplyBoxLabel{
+    text-align: center;
+    font-size: small;
+    color: white;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+.ReplyTextArea{
+    width: 90%;
+    height: 20vh;
+    margin-bottom: 5vh;
+    resize: none;
+}
