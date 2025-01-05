@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthenticationPageLogoSide from "../AuthenticationPageLogoSide";
 import PasswordComponent from "../PasswordComponent/PasswordComponent";
 import AtuhAPIService from "../AuthBackendRoutes";
-import { AnyARecord } from "dns";
 
 const SignUp: React.FC = () => {
     const navigate = useNavigate();

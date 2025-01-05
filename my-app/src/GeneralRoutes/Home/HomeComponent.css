@@ -1,0 +1,124 @@
+/* General Styles */
+.HomeBody {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    margin-top: 12%;
+}
+
+/* Welcome Container */
+.welcomeContainer {
+    text-align: center;
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.welcomeTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.welcomeDescription {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666666;
+}
+
+/* Feature Section */
+.featureContainer {
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.featureTitleContainer {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.featureTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333333;
+    text-transform: uppercase;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+/* Sub-Feature Container */
+.subFeatureContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Sub-Feature Sides */
+.subFeatureSide {
+    flex: 1;
+    padding: 10px;
+}
+
+/* Image Side */
+.pictureSide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.featurePic {
+    max-width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Description Side */
+.descriptionSide {
+    padding-left: 20px;
+}
+
+.subFeatureTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.subFeatureDescription {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .subFeatureContainer {
+        flex-direction: column;
+    }
+
+    .descriptionSide {
+        padding-left: 0;
+        margin-top: 15px;
+    }
+
+    .featurePic {
+        max-height: 150px;
+    }
+}

@@ -9,14 +9,16 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { StockData } from "../../../Interfaces/StockData";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-interface StockData {
-    data?: any;
-}
-
+/**
+ * this component is responsible for showing the earnings for each quarter or a year for a particular stock. 
+ * @param data - the earnigns data for the stock
+ * @returns 
+ */
 const EarningsChartComponent: React.FC<StockData> = ({ data }) => {
     const [chartData, setChartData] = useState<any>({
         labels: [],

@@ -20,7 +20,6 @@ function App() {
         <Route path='/loading' element={<LoadingComponent/>} />
         <Route path='/' element={<Layout />}>
           <Route index element={<HomeComponent/>} /> {/* Default path */}
-          <Route path='about'></Route>
           {/* Use StockRouter for dynamic stock routes */}
           <Route path='stocks/*' element={<StockRouter />} />
            <Route path='public-forum/*' element={<QuestionsRouter/>}></Route>

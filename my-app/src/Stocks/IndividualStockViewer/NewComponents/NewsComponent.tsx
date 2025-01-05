@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./NewsComponent.css";
+import { StockData } from "../../../Interfaces/StockData";
 
-interface StockData {
-    data?: any;
-}
-
+/**
+ * this component is responsible for showing the news articles relevant for a particular stock. A user will be able to click on an article and it will 
+ * send them to that article on another page
+ * @param data - the news articles for the current stock
+ * @returns 
+ */
 const NewsComponent: React.FC<StockData> = ({ data }) => {
     const [newsData, setNewsData] = useState<any[]>([]);
 

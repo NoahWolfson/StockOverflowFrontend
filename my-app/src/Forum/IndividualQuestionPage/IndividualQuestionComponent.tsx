@@ -4,16 +4,18 @@ import MessageComponent from "./MessageComponent/MessageComponent";
 import ResponseComponent from "./ResponseComponent/ResponseComponent";
 import {useNavigate, useParams} from "react-router-dom";
 import ReplyBoxComponent from "./ReplyBoxComponent/ReplyBoxComponent";
-import './IndividualQuestionComponent.css'
-import {AuthType} from "../../Interfaces/AuthType";
-import {useLocation} from "react-router-dom";
-import {MessageData, ResponseData} from "../MessageTypes";
+
+import { AuthType } from "../../Interfaces/AuthType";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
 type QuestionPageParams = {
     QuestionId?: string;
 }
-type isAuthenticated = {
-    setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
-}
+
+
+import './IndividualQuestionComponent.css'
+import {useLocation} from "react-router-dom";
+import {MessageData, ResponseData} from "../MessageTypes";
+
 /**This component represents the Individual Question Page in its entirety.
  * It uses the QuestionPageService functions to update its state from the backend, ultimately from the database.
  *

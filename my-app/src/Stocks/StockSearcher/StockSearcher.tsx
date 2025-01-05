@@ -1,40 +1,49 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 import StockSearcherAPIService from "./StockSearcherAPIService";
 import { AuthType } from "../../Interfaces/AuthType";
+import debounce from "lodash.debounce";
+
 import { Link, useNavigate } from "react-router-dom";
 import './StockSearcher.css'
-type isAuthenticated = {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-  }
-type StockRecommendation = {
-    name: string,
-    region: string,
-    securityType: string,
-    shortBio: string,
-    symbol: string
-}
+import { StockRecommendation } from "../../Interfaces/StockRecommendation";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
+
+
 
 const StockSearcherComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
     const [searchTicker, setSearchTicker] = useState("");
     const [searchRecommendations, setSearchRecommendations] = useState<StockRecommendation[] | []>([]);
     const navigator = useNavigate();
+    /**
+     * this method is responsible for fetching the search recommendations. teh debounce method, was recommedned by chat gpt to slow down the api calls so the search 
+     * recommendations shouldnt populate when the searchbar is empty 
+     */
+    const fetchSearchRecommendations = useCallback(
+        debounce(async (inputValue: string) => {
+            if (inputValue === "") {
+                setSearchRecommendations([]);
+                return;
+            }
+            try {
+                const response = await StockSearcherAPIService.getSearchRecommendations(inputValue);
+                setSearchRecommendations(response.data[0].Data.Data);
+            } catch (error) {
+                setSearchRecommendations([]);
+            }
+        }, 300), // Debounce with a delay of 300ms
+        []
+    );
 
-    async function SuggestionChecker(e: ChangeEvent<HTMLInputElement>): Promise<void> {
-        const inputValue = e.target.value;// Use the latest value directly
-        console.log(inputValue)
-        if (inputValue === "") {
-            setSearchTicker("")
-            return;
-        }
+    const SuggestionChecker = (e: ChangeEvent<HTMLInputElement>): void => {
+        const inputValue = e.target.value;
         setSearchTicker(inputValue);
-        try {
-            const response = await StockSearcherAPIService.getSearchRecommendations(inputValue);
-            setSearchRecommendations(response.data[0].Data.Data);
-            console.log(searchRecommendations)
-        } catch (error) {
-            setSearchRecommendations([]);
-        }
-    }
+
+        // Call the debounced function
+        fetchSearchRecommendations(inputValue);
+    };
+    /**
+     * this lamda expression is called on the onset of the page being rendered to get the user information 
+     */
     useEffect(() => {
         const getStockSearcher = async () => {
             try {
@@ -68,7 +77,7 @@ const StockSearcherComponent: React.FC<isAuthenticated> = ({setIsAuthenticated})
                             className="SearchBar"
                         />
                         <button type="submit" className="SearchButton">
-                            Search
+                            <img className='searchIcon' src="/SearchIcons/searchIcon.png" alt=""></img>
                         </button>
                     </div>
                 </form>

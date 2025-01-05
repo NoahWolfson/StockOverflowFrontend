@@ -3,18 +3,16 @@ import UserAPIService from "../UserAPIService";
 import { useNavigate, useParams } from "react-router-dom";
 import UserStockComponent from "./UserStockFollowed/UserStockFollowedComponent";
 import './UserProfilePage.css'
+
 import { AuthType } from "../../Interfaces/AuthType";
 import MessageComponent from "../../Forum/IndividualQuestionPage/MessageComponent/MessageComponent";
 import UserMessagesComponent from "./UserMessages/UserMessagesComponent";
 import messageStubData from "./UserMessages/UserMessageTypes";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
+import { AccountParam } from "../../Interfaces/AccountParam";
 
-type isAuthenticated = {
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-} 
-type AccountParam = {
-    userId?: string
-}
+
 /**
  * this component displays the Account data based on the spefici user selected. It includes information about 
  * the user like birthday, description, username and sign up date. 
@@ -22,8 +20,10 @@ type AccountParam = {
  * @returns 
  */
 const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
+
+    const {accountId} = useParams<AccountParam>();
     const [search,setSearch] = useState("");
-    const {userId} = useParams<AccountParam>();
+
     const [error, setError] = useState("");
     const navigator = useNavigate();
     const [userData, setUserData] = useState<any | null>(null);
@@ -35,9 +35,9 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
          */
         const UserDataGetter = async () => {
             try {
-                console.log(userId)
-                const response = await UserAPIService.getUserData(userId)
-                console.log(response)
+                console.log(accountId)
+                const response = await UserAPIService.getUserData(accountId)
+                console.log(response.data)
                 //will go to 404 route if there was a 404 error
                 if (response?.status === 404) {
                     navigator('/404')
@@ -61,7 +61,8 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
             }
         }
         UserDataGetter()
-    }, [userId, setIsAuthenticated])
+
+    }, [accountId, setIsAuthenticated], setUserData)
     const searchMessages = async(e: FormEvent)=>{
         e.preventDefault();
         if(userId){
@@ -73,8 +74,8 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
         }
     }
     const goToEditPage = () => {
-        if (userData.currUser === userId) {
-            navigator(`/user/${userId}/edit-profile`)
+        if (userData.currUser === accountId) {
+            navigator(`/user/${accountId}/edit-profile`)
         }
     }
     if (!userData) {
@@ -94,7 +95,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                             <p className="username">{userData.currViewedUser.Username}</p>
                         </div>
                     </div>
-                    {userData.currUser === userId ? <button onClick={() => {goToEditPage()}}className="edit-profile-btn">Edit Profile</button> : ""}
+                    {userData.currUser === accountId ? <button onClick={() => {goToEditPage()}}className="edit-profile-btn">Edit Profile</button> : ""}
                 </div>
             </div>
             <div className="profile-body">
@@ -117,11 +118,11 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                     <div className="profile-about">
                         <div className="account-data-container">
                             <p className="account-data">Sign Up Date</p>
-                            <p className="account-data">{userData.currViewedUser.Signup}</p>
+                            <p className="account-data">{userData.currViewedUser.Signup.split('T')[0]}</p>
                         </div>
                         <div className="account-data-container">
                             <p className="account-data">Birthday</p>
-                            <p className="account-data">{userData.currViewedUser.Birthday || "Nothing to see here"}</p>
+                            <p className="account-data">{userData.currViewedUser.Birthday.split('T')[0] || "Nothing to see here"}</p>
                         </div>
                         <div className="account-data-container">
                             <p className="account-data">Profile Description</p>

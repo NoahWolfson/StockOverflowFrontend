@@ -9,15 +9,18 @@ import CompanyOverviewComponent from "./CompanyOverview/CompanyOverviewComponent
 import './IndividualStock.css'
 import EarningsChartComponent from "./EarningsComponent/EarningsComponent";
 import StockFinancialComponent from "./StockFinancialDataComponent/StockFinancialDataComponent";
-import { AuthType } from "../../Interfaces/AuthType";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
+import { StockPageParams } from "../../Interfaces/StockTickerParam";
 
-type StockPageParams = {
-  stockTicker?: string; 
-}
-type isAuthenticated = {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<AuthType>>;
-}
+/**
+ * this page is responsible for showinginformation relevant about the stock such as the financials, news, stock summary, the ticker and the price changes throughout the day. Each of these major 
+ * stock information categories are in diffierent components, which are thoroughly explained in the design document. Other than the stock chart and the stock ticker components where teh stock symbol 
+ * is passed to them to do individual api calls (to make it real time), the rest of teh components get there stock data from the initial useEffect() which gets the stock data from the backend. that 
+ * is then passed to each individual component to be formatted in its correct location
+ * @param setIsAuthenticated -  a callback method meant to update the nav bar @see isAuthenticated
+ * @returns 
+ */
 const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
     const [alertMsg, setAlertMsg] = useState("");
     const { stockTicker } = useParams<StockPageParams>();
@@ -74,32 +77,69 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
                 {alertMsg !== "" ? <p className="alertMsg">{alertMsg}</p>: <p></p>}
           </div>
           <h1 className="StockName">{`${message.Stock.Summary.Data.QuoteOutput.Name} (${message.Stock.Summary.Data.QuoteOutput.Symbol})`}</h1>
-          <button className="add-stock" onClick={ProcessUserStock}>Add Stock</button>
           <div className="StockTickerComponent container">
-            <StockTickerComponent ticker={stockTicker}/>    
+            <StockTickerComponent stockTicker={stockTicker}/>    
           </div>
+          <button className="add-stock btn" onClick={ProcessUserStock}>Add Stock</button>
           <div className="StockChartComponent container">
-            <StockChartComponent ticker={stockTicker}/>
+          {(() => {
+              try {
+                return <StockChartComponent stockTicker={stockTicker}/>
+              } catch (error) {
+                return <p>Stock chart not available right now </p>
+              }
+            })()}
           </div>
           <div className="StockSummaryContainer container">
             <h3 className="ContainerTitle">Stock Summary</h3>
-            <StockSummaryComponent data={message.Stock.Summary.Data}/>
+            {(() => {
+              try {
+                return <StockSummaryComponent data={message.Stock.Summary.Data}/>
+              } catch (error) {
+                return <p>Stock Summary data not available right now </p>
+              }
+            })()}
           </div>
           <div className="EarningsContainer container">
             <h3 className="ContainerTitle">Earnings</h3>
-            <EarningsChartComponent data={message.Stock.Earnings.Data.body.earnings.financialsChart.quarterly}/>
+            {(() => {
+              try {
+                return <EarningsChartComponent data={message.Stock.Earnings.Data.body.earnings.financialsChart.quarterly}/>
+              } catch (error) {
+                return <p>Earnings data not available right now </p>
+              }
+            })()}
           </div>
            <div className="CompanyOverviewContainer container">
             <h3 className="ContainerTitle">Company Overview</h3>
-            <CompanyOverviewComponent data={message.Stock.Company_Info.Data}/>
+            {(() => {
+              try {
+                return <CompanyOverviewComponent data={message.Stock.Company_Info.Data}/>
+              } catch (error) {
+                return <p>Company Overview data not available right now </p>
+              }
+            })()}
           </div>
           <div className="StockFinancialContainer container">
             <h3 className="ContainerTitle">Stock Financial</h3>
-            <StockFinancialComponent data={message.Stock.Financial.Data.body}/>
+            {(() => {
+              try {
+                return <StockFinancialComponent data={message.Stock.Financial.Data.body}/>
+              } catch (error) {
+                return <p>Stock Financial data not available right now </p>
+              }
+            })()}
           </div>
           <div className="StockNewsComponenet container">
             <h3 className="ContainerTitle">News</h3>  
-            <NewsComponent data={Array.isArray(message.Stock.News.Data.data.main.stream) ? message.Stock.News.Data.data.main.stream : []}/>
+            {(() => {
+              try {
+                return <NewsComponent data={Array.isArray(message.Stock.News.Data.data.main.stream) ? message.Stock.News.Data.data.main.stream : []}/>
+              } catch (error) {
+                return <p>Stock News not available right now</p>
+              }
+            })()}
+           
           </div> 
         </div>
       );
