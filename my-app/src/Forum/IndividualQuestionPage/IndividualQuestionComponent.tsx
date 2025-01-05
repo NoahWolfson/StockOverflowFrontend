@@ -1,61 +1,84 @@
 import React, {useEffect, useState} from "react";
-import QuestionPageService,{ResponseData,MessageData} from "./QuestionPageService";
+import QuestionPageService from "./QuestionPageService";
 import MessageComponent from "./MessageComponent/MessageComponent";
 import ResponseComponent from "./ResponseComponent/ResponseComponent";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import ReplyBoxComponent from "./ReplyBoxComponent/ReplyBoxComponent";
+
 import { AuthType } from "../../Interfaces/AuthType";
 import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
 type QuestionPageParams = {
     QuestionId?: string;
 }
 
+
+import './IndividualQuestionComponent.css'
+import {useLocation} from "react-router-dom";
+import {MessageData, ResponseData} from "../MessageTypes";
+
 /**This component represents the Individual Question Page in its entirety.
  * It uses the QuestionPageService functions to update its state from the backend, ultimately from the database.
  *
  * @constructor
  */
-const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthenticated})=>{
+const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setAuth})=>{
+    const location= useLocation();
     const [data, setData] = React.useState<Array<ResponseData>>([]);
-    const [questionData, setQuestionData] = React.useState<MessageData | null>(null);
+    const [question, setQuestion] = React.useState<MessageData>();
     const {QuestionId} = useParams<QuestionPageParams>();
     const [replyTo, setReplyTo] = React.useState<MessageData>();
-    const [isDone, setIsDone] = React.useState(false);
-    const [userId, setUserId] = React.useState<string>();
-    const [error, setError] = useState<any | null>(null);
+    const navigate = useNavigate();
+    const [timeOuts,setTimeOuts] = React.useState<Array<NodeJS.Timeout>>([]);
     useEffect(()=>{
         const update = async function(){
             try {
-                let qData = await QuestionPageService.getMessage(QuestionId || "Err");
-                setQuestionData(qData);
-                let response = await QuestionPageService.getPage(QuestionId || "Err");
-                setData(response.Responses);
-                setIsAuthenticated(response.isAuthenticated);
-                setUserId(response.userId);
-                setIsDone(questionData != null);
+                let qData: MessageData = await QuestionPageService.getQuestion(QuestionId || "Err",setAuth);
+                if(qData == null){
+                    navigate("/public-forum");
+                }
+                if(qData.IsQuestion as boolean) {
+                    setQuestion(prev => qData);
+                    let response =  await QuestionPageService.getPage(QuestionId || "Err",setAuth);
+                    setData(response?.Responses);
+                    const timeOutId = setTimeout(update,300);
+                    setTimeOuts([...timeOuts, timeOutId]);
+                }
+                else {
+                    console.log(qData);
+                    navigate("/public-forum/" + qData.RepliedTo, {
+                        state: {
+                            data: [],
+                            question: null,
+                            replyTo: null
+                        }
+                    });
+                }
             }catch (err: any){
-                return;
+                console.error(err);
             }
-            setTimeout(update, 1500);
         }
         update();
-    },[]);
+        return ()=>{
+            for(const id of timeOuts){
+                clearTimeout(id);
+            }
+        }
+    },[location]);
     return (
-        <div className="body">
-            {isDone ? (
-        <div className = "questionContainer">
-            <MessageComponent setIsAuthorized={setIsAuthenticated} msg = {questionData!} setReplyMessage={setReplyTo} />
-
-        </div>) : (<p>Loading Question</p>)}
-            {data ?(
+        <div className="QuestionPageBody" >
+            {question ? (
+                <div className="questionContainer">
+                    <MessageComponent setAuth={setAuth} msg={question!} setReplyMessage={setReplyTo}/>
+                </div>) : <p>Loading Question</p>}
+            {(data && question)?(
             <ol>
                 {data.map((response: ResponseData,index: number) => (
-                    <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent setIsAuthorized={setIsAuthenticated} responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
+                    <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent setAuth={setAuth} responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
                 ))}
 
             </ol>) : <p>Loading Responses</p>
             }
-            {replyTo ? (<ReplyBoxComponent messageData={replyTo}></ReplyBoxComponent>):<footer>Loading</footer>}
+            {replyTo ? (<ReplyBoxComponent messageData={replyTo} setAuth={setAuth}></ReplyBoxComponent>):null}
     </div>);
 }
 export default IndividualQuestionComponent;

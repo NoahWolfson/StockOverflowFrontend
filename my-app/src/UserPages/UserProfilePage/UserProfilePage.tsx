@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, {FormEvent, useEffect, useState} from "react"
 import UserAPIService from "../UserAPIService";
 import { useNavigate, useParams } from "react-router-dom";
 import UserStockComponent from "./UserStockFollowed/UserStockFollowedComponent";
 import './UserProfilePage.css'
 
+import { AuthType } from "../../Interfaces/AuthType";
+import MessageComponent from "../../Forum/IndividualQuestionPage/MessageComponent/MessageComponent";
+import UserMessagesComponent from "./UserMessages/UserMessagesComponent";
+import messageStubData from "./UserMessages/UserMessageTypes";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
 import { AccountParam } from "../../Interfaces/AccountParam";
@@ -16,10 +20,15 @@ import { AccountParam } from "../../Interfaces/AccountParam";
  * @returns 
  */
 const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
+
     const {accountId} = useParams<AccountParam>();
+    const [search,setSearch] = useState("");
+
     const [error, setError] = useState("");
     const navigator = useNavigate();
     const [userData, setUserData] = useState<any | null>(null);
+    const [messages,setMessages] = useState<messageStubData[] | null>(null);
+    const [sort, setSort] = useState<string>("Relevance");
     useEffect(() => {
         /**
          * this method is reponsible for getting the account information from teh backend 
@@ -41,13 +50,29 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                 setIsAuthenticated({'accountId': currUser, picStr:  currPic})
                 console.log('userdata');
                 console.log(userData)
+                const messageResponse = await UserAPIService.getUserMessages(userId);
+                currUser = response.currUser;
+                currPic = response.profilePicture;
+                console.log(messageResponse);
+                setMessages(prev=>messageResponse.messages);
+
             } catch (error) {
                 setError("Error getting account data")
             }
         }
         UserDataGetter()
-    }, [accountId, setIsAuthenticated, setUserData])
 
+    }, [accountId, setIsAuthenticated], setUserData)
+    const searchMessages = async(e: FormEvent)=>{
+        e.preventDefault();
+        if(userId){
+        try{
+            let response = await UserAPIService.getUserMessageSearch(userId,search,sort);
+            setMessages(prevState => response.matches);
+        }catch (err){
+            console.error(err)}
+        }
+    }
     const goToEditPage = () => {
         if (userData.currUser === accountId) {
             navigator(`/user/${accountId}/edit-profile`)
@@ -75,7 +100,19 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
             </div>
             <div className="profile-body">
                 <div className="profile-messages">
-                    <p>Nothing to see here</p>
+                    <form onSubmit={searchMessages}>
+                        <label>
+                            <input type={"text"} value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <select className="SortSelect" onChange={(e) => setSort(e.target.value)}>
+                                <option value="Relevance">Sort by Text Similarity</option>
+                                <option value="Date_Created">Sort by Date</option>
+                                <option value="Likes">Sort by Likes</option>
+                                <option value="Dislikes">Sort by Dislikes</option>
+                            </select>
+                        </label>
+                        <button type={"submit"} className={"MessageSearchButton"}>See Results</button>
+                    </form>
+                    {(messages && userId)? (<UserMessagesComponent messages= {messages} accountId={userId} key={"userMessages"}></UserMessagesComponent>): null}
                 </div>
                 <div className="about-and-stocks">
                     <div className="profile-about">

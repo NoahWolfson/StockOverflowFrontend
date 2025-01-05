@@ -1,0 +1,25 @@
+.Comments{
+    position: relative;
+    left: 10vw;
+}
+.CommentContainer > .MessageComponent{
+    background-color: seashell;
+    border: lightsalmon solid 2px;
+}
+.CommentContainer > .MessageComponent > .MessageText{
+    color: orangered;
+}
+.ResponseContainer > .MessageComponent{
+    background-color: lightyellow;
+    border: saddlebrown solid 2px;
+}
+.ResponseContainer > .MessageComponent > .MessageText{
+    color: indianred;
+}
+.showCommentsButton{
+    position: relative;
+    left: 40%;
+}
+.ResponseComponent{
+    margin-top: 2%;
+}

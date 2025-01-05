@@ -1,10 +1,31 @@
 .ReplyBox {
-    width: 80vw;
-    height: 20vh;
-    display: contents;
+    align-items: center;
+    width: 100%;
     position: fixed;
-    background-color: darkslategray;
+    display: flex;
+    flex-direction: column;
     bottom: 0;
-    left: 0;
+    background-color: darkred;
     border: slategray 2px double;
+}
+.ReplyBoxButtons > button {
+    margin-left: 1vw;
+    background-color: indianred;
+    width: 8vw;
+    height: 4vh;
+    border: none;
+    color: white;
+}
+.ReplyBoxLabel{
+    text-align: center;
+    font-size: small;
+    color: white;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+.ReplyTextArea{
+    width: 90%;
+    height: 20vh;
+    margin-bottom: 5vh;
+    resize: none;
 }
