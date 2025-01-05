@@ -75,7 +75,7 @@ const HomeComponent: React.FC = () => {
                         </div>
                         <div className="subFeatureContainer">
                             <div className="subFeatureSide pictureSide">
-                                <img src="" alt="FeaturePic" className="featurePic"></img>
+                                <img src="/Forum/QuestionSearcher.png" alt="FeaturePic" className="featurePic"></img>
                             </div>
                             <div className="subFeatureSide descriptionSide">
                                 <h4 className="subFeatureTitle">Individual Questions Page</h4>
@@ -88,7 +88,7 @@ const HomeComponent: React.FC = () => {
                                 <h6 className="subFeatureDescription">You think you know how to answer some stock questions, or maybe you want to comment on someone elses response? Make an account today to respond to any other user questions</h6>
                             </div>
                             <div className="subFeatureSide pictureSide">
-                                <img src="" alt="FeaturePic" className="featurePic"></img>
+                                <img src="/Forum/IndividualQuestionPage.png" alt="FeaturePic" className="featurePic"></img>
                             </div>
                         </div>
                         <div className="subFeatureContainer">

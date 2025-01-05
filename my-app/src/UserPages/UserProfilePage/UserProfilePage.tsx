@@ -2,10 +2,7 @@ import React, {FormEvent, useEffect, useState} from "react"
 import UserAPIService from "../UserAPIService";
 import { useNavigate, useParams } from "react-router-dom";
 import UserStockComponent from "./UserStockFollowed/UserStockFollowedComponent";
-import './UserProfilePage.css'
-
-import { AuthType } from "../../Interfaces/AuthType";
-import MessageComponent from "../../Forum/IndividualQuestionPage/MessageComponent/MessageComponent";
+import './UserProfilePage.css';
 import UserMessagesComponent from "./UserMessages/UserMessagesComponent";
 import messageStubData from "./UserMessages/UserMessageTypes";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
@@ -95,7 +92,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                             <p className="username">{userData.currViewedUser.Username}</p>
                         </div>
                     </div>
-                    {userData.currUser === accountId ? <button onClick={() => {goToEditPage()}}className="edit-profile-btn">Edit Profile</button> : ""}
+                    {userData.currUser === accountId ? <button onClick={() => {goToEditPage()}} className="edit-profile-btn">Edit Profile</button> : ""}
                 </div>
             </div>
             <div className="profile-body">

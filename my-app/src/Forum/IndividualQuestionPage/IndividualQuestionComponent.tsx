@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import QuestionPageService from "./QuestionPageService";
 import MessageComponent from "./MessageComponent/MessageComponent";
 import ResponseComponent from "./ResponseComponent/ResponseComponent";
 import {useNavigate, useParams} from "react-router-dom";
 import ReplyBoxComponent from "./ReplyBoxComponent/ReplyBoxComponent";
+
+import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
 import './IndividualQuestionComponent.css'
 import {useLocation} from "react-router-dom";
 import {MessageData, ResponseData} from "../MessageTypes";
-import { AuthType } from "../../Interfaces/AuthType";
-import { isAuthenticated } from "../../Interfaces/IsAuthenticated";
+import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 type QuestionPageParams = {
     QuestionId?: string;
 }
-
-
 
 
 /**This component represents the Individual Question Page in its entirety.
@@ -33,10 +32,9 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthentica
         const update = async function(){
             try {
                 let qData: MessageData = await QuestionPageService.getQuestion(QuestionId || "Err",setIsAuthenticated);
-                if(qData == null){
-                    navigate("/public-forum");
-                }
-                if(qData.IsQuestion as boolean) {
+
+                if(qData?.IsQuestion as boolean) {
+
                     setQuestion(prev => qData);
                     let response =  await QuestionPageService.getPage(QuestionId || "Err",setIsAuthenticated);
                     setData(response?.Responses);
@@ -45,7 +43,7 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthentica
                 }
                 else {
                     console.log(qData);
-                    navigate("/public-forum/" + qData.RepliedTo, {
+                    navigate("/public-forum/" + qData?.RepliedTo, {
                         state: {
                             data: [],
                             question: null,
@@ -69,14 +67,15 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthentica
             {question ? (
                 <div className="questionContainer">
                     <MessageComponent setAuth={setIsAuthenticated} msg={question!} setReplyMessage={setReplyTo}/>
-                </div>) : <p>Loading Question</p>}
+
+                </div>) : <LoadingComponent/>}
             {(data && question)?(
             <ol>
-                {data.map((response: ResponseData,index: number) => (
+                {data.map((response: ResponseData) => (
                     <li key = {"response:" + response.Response._id} className="ResponseContainer"><ResponseComponent setAuth={setIsAuthenticated} responseData={response} setReplyMessage={setReplyTo}></ResponseComponent></li>
                 ))}
 
-            </ol>) : <p>Loading Responses</p>
+            </ol>) : <LoadingComponent/>
             }
             {replyTo ? (<ReplyBoxComponent messageData={replyTo} setAuth={setIsAuthenticated}></ReplyBoxComponent>):null}
     </div>);
