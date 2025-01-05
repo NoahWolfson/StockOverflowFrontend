@@ -11,16 +11,14 @@ const QuestionPoster : React.FC<isAuthenticated> = ({setAuth}) =>{
     const [text, setText] = useState("");
     const [show, setShow] = useState(true);
     const postQuestion = async (e: FormEvent)=> {
-        e.preventDefault();
         const success = await ForumPageService.postQuestion(setAuth,text);
-        setText("");
         if(!success){
             navigator("/auth/login");
         }
     }
     return(
         <div className="QuestionPoster">
-            <button className="PostButton" onClick={() => setShow(!show)}>Toggle</button>
+            <button className="PostButton" onClick={() => setShow(!show)}>Toggle Typing</button>
             {show ? <form onSubmit={postQuestion} className="QuestionPosterForm">
                 <textarea onChange={(e) => setText(e.target.value)} className="QuestionText"></textarea>
                 <button type="submit" className="PostButton">Ask Question</button>

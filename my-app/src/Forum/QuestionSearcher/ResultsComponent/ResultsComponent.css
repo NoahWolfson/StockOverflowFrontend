@@ -1,25 +1,30 @@
 .ResultStub {
     text-align: center;
     border: #007bff 1px solid;
+    border-radius: 8px;
     color: black;
     justify-self: center;
     width: 80%;
-    height: 10vh;
+    height: auto;
+    min-height: 10vh;
+    margin-bottom: 5vh;
+    padding: 1vh;
     display: grid;
+}
+a{
+    text-decoration: none;
 }
 .ResultHeader{
     color: darkslategray;
     text-align: center;
     height: 25%;
     width: 100%;
-    font: small "Times New Roman", Times, serif;
+    font: small "Courier New", Courier;
 }
 .ResultText {
     justify-self: center;
     text-align: left;
     font: small "Times New Roman", Times, serif;
-    border-top: gray solid 1px;
-    border-bottom: gray solid 1px;
     text-decoration: none;
     color: darkslategray;
     min-height: 5vh;

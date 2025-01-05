@@ -9,7 +9,7 @@ const QuestionsRouter: React.FC = () => {
     return (
         <Routes>
             <Route path = "" element = {<QuestionsSearcher setAuth={setIsAuthenticated}/>} />
-            <Route path=":QuestionId" element={<IndividualQuestionComponent setAuth={setIsAuthenticated}/>} />
+            <Route path=":QuestionId" element={<IndividualQuestionComponent setIsAuthenticated={setIsAuthenticated}/>} />
             <Route path = "*" element ={<NotFoundComponent/>}/>
         </Routes>
     );

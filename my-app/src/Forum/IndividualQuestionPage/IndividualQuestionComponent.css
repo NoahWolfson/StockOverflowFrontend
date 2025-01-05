@@ -4,8 +4,9 @@
     flex-direction: column;
 }
 .questionContainer > .MessageComponent{
-    background-color: lightgoldenrodyellow;
+    background-color: whitesmoke;
     border: 2px solid gold;
+    border-radius: 10px;
 }
 .questionContainer > .MessageComponent > .MessageText{
     color: red;

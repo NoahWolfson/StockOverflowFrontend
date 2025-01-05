@@ -2,10 +2,7 @@ import React, {FormEvent, useEffect, useState} from "react"
 import UserAPIService from "../UserAPIService";
 import { useNavigate, useParams } from "react-router-dom";
 import UserStockComponent from "./UserStockFollowed/UserStockFollowedComponent";
-import './UserProfilePage.css'
-
-import { AuthType } from "../../Interfaces/AuthType";
-import MessageComponent from "../../Forum/IndividualQuestionPage/MessageComponent/MessageComponent";
+import './UserProfilePage.css';
 import UserMessagesComponent from "./UserMessages/UserMessagesComponent";
 import messageStubData from "./UserMessages/UserMessageTypes";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
@@ -50,7 +47,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                 setIsAuthenticated({'accountId': currUser, picStr:  currPic})
                 console.log('userdata');
                 console.log(userData)
-                const messageResponse = await UserAPIService.getUserMessages(userId);
+                const messageResponse = await UserAPIService.getUserMessages(accountId);
                 currUser = response.currUser;
                 currPic = response.profilePicture;
                 console.log(messageResponse);
@@ -62,12 +59,12 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
         }
         UserDataGetter()
 
-    }, [accountId, setIsAuthenticated], setUserData)
+    }, [accountId, setIsAuthenticated, setUserData])
     const searchMessages = async(e: FormEvent)=>{
         e.preventDefault();
-        if(userId){
+        if(accountId){
         try{
-            let response = await UserAPIService.getUserMessageSearch(userId,search,sort);
+            let response = await UserAPIService.getUserMessageSearch(accountId,search,sort);
             setMessages(prevState => response.matches);
         }catch (err){
             console.error(err)}
@@ -95,7 +92,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                             <p className="username">{userData.currViewedUser.Username}</p>
                         </div>
                     </div>
-                    {userData.currUser === accountId ? <button onClick={() => {goToEditPage()}}className="edit-profile-btn">Edit Profile</button> : ""}
+                    {userData.currUser === accountId ? <button onClick={() => {goToEditPage()}} className="edit-profile-btn">Edit Profile</button> : ""}
                 </div>
             </div>
             <div className="profile-body">
@@ -112,7 +109,7 @@ const UserProfilePage: React.FC<isAuthenticated> = ({setIsAuthenticated}) => {
                         </label>
                         <button type={"submit"} className={"MessageSearchButton"}>See Results</button>
                     </form>
-                    {(messages && userId)? (<UserMessagesComponent messages= {messages} accountId={userId} key={"userMessages"}></UserMessagesComponent>): null}
+                    {(messages && accountId)? (<UserMessagesComponent messages= {messages} accountId={accountId} key={"userMessages"}></UserMessagesComponent>): null}
                 </div>
                 <div className="about-and-stocks">
                     <div className="profile-about">

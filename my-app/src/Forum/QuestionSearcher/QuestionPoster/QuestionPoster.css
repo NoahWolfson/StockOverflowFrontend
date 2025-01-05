@@ -7,7 +7,7 @@
     bottom: 0;
     background-color: darkred;
     border: slategray 2px double;
-    align-self: center
+    align-self: center;
 }
 .PostButton{
     background-color: indianred;

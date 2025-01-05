@@ -1,17 +1,15 @@
 .Comments{
     position: relative;
     left: 10vw;
-}
-.CommentContainer > .MessageComponent{
-    background-color: seashell;
-    border: lightsalmon solid 2px;
+    list-style-type: none;
 }
 .CommentContainer > .MessageComponent > .MessageText{
     color: orangered;
 }
 .ResponseContainer > .MessageComponent{
-    background-color: lightyellow;
+    background-color: floralwhite;
     border: saddlebrown solid 2px;
+    border-radius: 10px;
 }
 .ResponseContainer > .MessageComponent > .MessageText{
     color: indianred;
@@ -22,4 +20,12 @@
 }
 .ResponseComponent{
     margin-top: 2%;
+}
+.showCommentsButton{
+    background-color: brown;
+    border: lightsalmon solid 2px;
+    color: white;
+    font-size: small;
+    width: 10vw;
+    height: 5vh;
 }
