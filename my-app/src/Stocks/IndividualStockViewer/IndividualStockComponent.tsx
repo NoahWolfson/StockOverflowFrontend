@@ -82,27 +82,64 @@ const IndividualStockComponent: React.FC<isAuthenticated> = ({setIsAuthenticated
           </div>
           <button className="add-stock btn" onClick={ProcessUserStock}>Add Stock</button>
           <div className="StockChartComponent container">
-            <StockChartComponent stockTicker={stockTicker}/>
+          {(() => {
+              try {
+                return <StockChartComponent stockTicker={stockTicker}/>
+              } catch (error) {
+                return <p>Stock chart not available right now </p>
+              }
+            })()}
           </div>
           <div className="StockSummaryContainer container">
             <h3 className="ContainerTitle">Stock Summary</h3>
-            <StockSummaryComponent data={message.Stock.Summary.Data}/>
+            {(() => {
+              try {
+                return <StockSummaryComponent data={message.Stock.Summary.Data}/>
+              } catch (error) {
+                return <p>Stock Summary data not available right now </p>
+              }
+            })()}
           </div>
           <div className="EarningsContainer container">
             <h3 className="ContainerTitle">Earnings</h3>
-            <EarningsChartComponent data={message.Stock.Earnings.Data.body.earnings.financialsChart.quarterly}/>
+            {(() => {
+              try {
+                return <EarningsChartComponent data={message.Stock.Earnings.Data.body.earnings.financialsChart.quarterly}/>
+              } catch (error) {
+                return <p>Earnings data not available right now </p>
+              }
+            })()}
           </div>
            <div className="CompanyOverviewContainer container">
             <h3 className="ContainerTitle">Company Overview</h3>
-            <CompanyOverviewComponent data={message.Stock.Company_Info.Data}/>
+            {(() => {
+              try {
+                return <CompanyOverviewComponent data={message.Stock.Company_Info.Data}/>
+              } catch (error) {
+                return <p>Company Overview data not available right now </p>
+              }
+            })()}
           </div>
           <div className="StockFinancialContainer container">
             <h3 className="ContainerTitle">Stock Financial</h3>
-            <StockFinancialComponent data={message.Stock.Financial.Data.body}/>
+            {(() => {
+              try {
+                return <StockFinancialComponent data={message.Stock.Financial.Data.body}/>
+              } catch (error) {
+                return <p>Stock Financial data not available right now </p>
+              }
+            })()}
           </div>
           <div className="StockNewsComponenet container">
             <h3 className="ContainerTitle">News</h3>  
-            <NewsComponent data={Array.isArray(message.Stock.News.Data.data.main.stream) ? message.Stock.News.Data.data.main.stream : []}/>
+            {(() => {
+              try {
+                return <NewsComponent data={Array.isArray(message.Stock.News.Data.data.main.stream) ? message.Stock.News.Data.data.main.stream : []}/>
+              } catch (error) {
+                return <p>Stock News not available right now</p>
+              }
+            })()}
+           
           </div> 
         </div>
       );
