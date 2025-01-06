@@ -32,9 +32,7 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthentica
         const update = async function(){
             try {
                 let qData: MessageData = await QuestionPageService.getQuestion(QuestionId || "Err",setIsAuthenticated);
-
                 if(qData?.IsQuestion as boolean) {
-
                     setQuestion(prev => qData);
                     let response =  await QuestionPageService.getPage(QuestionId || "Err",setIsAuthenticated);
                     setData(response?.Responses);
@@ -42,14 +40,17 @@ const IndividualQuestionComponent: React.FC<isAuthenticated> = ({setIsAuthentica
                     setTimeOuts([...timeOuts, timeOutId]);
                 }
                 else {
-                    console.log(qData);
-                    navigate("/public-forum/" + qData?.RepliedTo, {
-                        state: {
-                            data: [],
-                            question: null,
-                            replyTo: null
-                        }
-                    });
+                    try {
+                        navigate("/public-forum/" + qData.RepliedTo, {
+                            state: {
+                                data: [],
+                                question: null,
+                                replyTo: null
+                            }
+                        });
+                    }catch(err){
+                        navigate("/public-forum")
+                    }
                 }
             }catch (err: any){
                 console.error(err);

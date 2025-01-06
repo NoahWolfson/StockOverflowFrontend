@@ -28,7 +28,7 @@ export default class ForumPageService {
             console.error(`Failed to get recent questions: ${error}`);
         }
     }
-    static async postQuestion(setAuth: React.Dispatch<React.SetStateAction<AuthType>>,text: string){
+    static async postQuestion(setAuth: React.Dispatch<React.SetStateAction<AuthType>>,text: string): Promise<boolean> {
         try {
             const response = await axios.post(BASE_URL, {Text: text}, config);
             setAuth({
