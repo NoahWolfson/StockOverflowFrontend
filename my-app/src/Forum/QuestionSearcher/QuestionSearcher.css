@@ -2,3 +2,7 @@
     margin-top: 15vw;
     align-items: center;
 }
+.WarningLabel{
+    font: bold medium "Courier New", Courier, monospace;
+    color: darkred;
+}

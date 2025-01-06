@@ -6,17 +6,15 @@ import ForumPageService from "../ForumPageService";
 import LoadingComponent from "../../GeneralRoutes/LoadingPage/LoadingComponent";
 import QuestionPoster from "./QuestionPoster/QuestionPoster";
 import './QuestionSearcher.css'
-type isAuthenticated = {
-    setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
-}
-const QuestionsSearcher: React.FC<isAuthenticated> = ({setAuth})=>{
+import {isAuthenticated} from "../../Interfaces/IsAuthenticated";
+const QuestionsSearcher: React.FC<isAuthenticated> = ({setIsAuthenticated})=>{
     const [messages,setMessages] = useState<SearchResultData[]>();
     const [sort, setSort] = useState<string>("Relevance");
     const [search,setSearch] = useState("");
     const searchMessages = async(e: FormEvent)=>{
         e.preventDefault();
         try{
-            let response = await ForumPageService.getSearchResults(setAuth, search,sort);
+            let response = await ForumPageService.getSearchResults(setIsAuthenticated, search,sort);
             setMessages(prevState => response);
         }catch (err){
             console.error(err)}
@@ -24,7 +22,7 @@ const QuestionsSearcher: React.FC<isAuthenticated> = ({setAuth})=>{
     useEffect(()=>{
         const init =async ()=>{
             try {
-                setMessages(await ForumPageService.getRecentQuestions(setAuth));
+                setMessages(await ForumPageService.getRecentQuestions(setIsAuthenticated));
             }
             catch(err){
                 console.error("Failed to find recent messages: " + err);
@@ -36,7 +34,8 @@ const QuestionsSearcher: React.FC<isAuthenticated> = ({setAuth})=>{
     },[])
     return(
         <div className="QuestionSearcher">
-            <QuestionPoster setAuth={setAuth}></QuestionPoster>
+            <label className="WarningLabel">Profane or empty messages are not allowed.</label>
+            <QuestionPoster setAuth={setIsAuthenticated}></QuestionPoster>
                 <form onSubmit={searchMessages}>
                     <label>
                         <input type={"text"} value={search} onChange={(e) => setSearch(e.target.value)}/>

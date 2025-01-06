@@ -30,3 +30,6 @@ a{
     min-height: 5vh;
     width: 100%;
 }
+.ResultsComponent{
+    overflow-y: scroll;
+}
